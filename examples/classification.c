@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <sys/types.h>
 #include <sys/stat.h>
+#include <time.h>
 #include <fcntl.h>
 #include <unistd.h>
 
@@ -56,6 +57,13 @@ close_file:
 	return 1;
 }
 
+static double udifftimeval1(struct timespec start, struct timespec end)
+{
+	return (double)(end.tv_nsec - start.tv_nsec) +
+		(double)(end.tv_sec - start.tv_sec) * 1000 * 1000 * 1000;
+}
+
+
 int main(int argc, char *argv[])
 {
 	int ret;
@@ -63,6 +71,10 @@ int main(int argc, char *argv[])
        	size_t image_size;
 	char out_text[512], out_imagename[512];
 	struct vaccel_session sess;
+	struct timespec start1, end1;
+	int tt = 0, iterations = 0;
+	double ttotal = 0, op_time[iterations-1];
+
 
 	if (argc != 3) {
 		fprintf(stderr, "Usage: %s filename #iterations\n", argv[0]);
@@ -74,19 +86,16 @@ int main(int argc, char *argv[])
 		fprintf(stderr, "Could not initialize session\n");
 		return 1;
 	}
+	iterations = atoi(argv[2]);
 
 	printf("Initialized session with id: %u\n", sess.session_id);
 
+	ret = read_file(argv[1], &image, &image_size);
+	if (ret)
+		goto close_session;
 
-
-
-
-	for (int i = 0; i < atoi(argv[2]); ++i) {
-
-		ret = read_file(argv[1], &image, &image_size);
-		if (ret)
-			goto close_session;
-
+	for (int i = 0; i < iterations; ++i) {
+		clock_gettime(CLOCK_MONOTONIC, &start1);
 		ret = vaccel_image_classification(&sess, image, (unsigned char*)out_text, (unsigned char*)out_imagename,
 				image_size, sizeof(out_text), sizeof(out_imagename));
 		if (ret) {
@@ -94,9 +103,17 @@ int main(int argc, char *argv[])
 			break;
 		}
 
-		if (i == 0)
+		clock_gettime(CLOCK_MONOTONIC, &end1);
+		op_time[tt] = udifftimeval1(start1, end1);
+		ttotal += op_time[tt];
+		if (i == iterations - 1)
 			printf("classification tags: %s\n", out_text);
 	}
+	for (int i = 0; i < iterations; i++)
+		fprintf(stdout, "\top[%d]: %.6f ms\n", i, op_time[i] / 1000000.0);
+	fprintf(stdout, "\n\titerations: %d\n\top: %.6f ms\n", \
+		iterations, ttotal / (tt * 1000000.0));
+
 
 	free(image);
 
