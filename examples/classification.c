@@ -105,7 +105,7 @@ int main(int argc, char *argv[])
 
 		clock_gettime(CLOCK_MONOTONIC, &end1);
 		op_time[tt] = udifftimeval1(start1, end1);
-		ttotal += op_time[tt];
+		ttotal += op_time[tt++];
 		if (i == iterations - 1)
 			printf("classification tags: %s\n", out_text);
 	}
