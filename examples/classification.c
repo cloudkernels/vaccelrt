@@ -77,11 +77,16 @@ int main(int argc, char *argv[])
 
 	printf("Initialized session with id: %u\n", sess.session_id);
 
-	ret = read_file(argv[1], &image, &image_size);
-	if (ret)
-		goto close_session;
+
+
+
 
 	for (int i = 0; i < atoi(argv[2]); ++i) {
+
+		ret = read_file(argv[1], &image, &image_size);
+		if (ret)
+			goto close_session;
+
 		ret = vaccel_image_classification(&sess, image, (unsigned char*)out_text, (unsigned char*)out_imagename,
 				image_size, sizeof(out_text), sizeof(out_imagename));
 		if (ret) {
