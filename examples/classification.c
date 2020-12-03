@@ -73,7 +73,6 @@ int main(int argc, char *argv[])
 	struct vaccel_session sess;
 	struct timespec start1, end1;
 	int tt = 0, iterations = 0;
-	double ttotal = 0, op_time[iterations-1];
 
 
 	if (argc != 3) {
@@ -88,6 +87,7 @@ int main(int argc, char *argv[])
 	}
 	iterations = atoi(argv[2]);
 
+	double ttotal = 0, op_time[iterations-1];
 	printf("Initialized session with id: %u\n", sess.session_id);
 
 	ret = read_file(argv[1], &image, &image_size);
