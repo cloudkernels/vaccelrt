@@ -9,7 +9,8 @@ project(vaccelrt
 option(BUILD_PLUGIN_VIRTIO "Build the VirtIO plugin" OFF)
 option(BUILD_PLUGIN_JETSON "Build the Jetson plugin" OFF)
 option(BUILD_PLUGIN_NOOP "Build the no-op debugging plugin" OFF)
-option(BUILD_EXAMPLES "Build the examples" OFF)
+option(BUILD_PLUGIN_OCL "Build the list-platforms plugin" ON)
+option(BUILD_EXAMPLES "Build the examples" ON)
 
 ## Download GoogleTest framework
 configure_file(

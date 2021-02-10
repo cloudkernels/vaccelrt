@@ -3,12 +3,25 @@
 #include "common.h"
 
 /* export supported function as types for the rest of the runtime */
+typedef typeof(vaccel_list_platforms) list_platforms_t;
 typedef typeof(vaccel_noop) noop_t;
 typedef typeof(vaccel_sgemm) sgemm_t;
 typedef typeof(vaccel_image_classification) image_classification_t;
 typedef typeof(vaccel_image_detection) image_detection_t;
 typedef typeof(vaccel_image_segmentation) image_segmentation_t;
 
+int vaccel_list_platforms(struct vaccel_session *sess)
+{
+	if (!sess)
+		return VACCEL_EINVAL;
+
+	//Get implementation
+	noop_t *backend_op = get_backend_op(VACCEL_OCL);
+	if (!backend_op)
+		return VACCEL_ENOTSUP;
+
+	return backend_op(sess);
+}
 int vaccel_noop(struct vaccel_session *sess)
 {
 	if (!sess)

@@ -9,11 +9,13 @@
 #define VACCEL_IMG_CLASS    2
 #define VACCEL_IMG_DETEC    3
 #define VACCEL_IMG_SEGME    4
-#define VACCEL_FUNCTIONS_NR 5
+#define VACCEL_OCL 	    5
+#define VACCEL_FUNCTIONS_NR 6
 
 struct vaccel_session;
 
 /* vaccel supported operations */
+int vaccel_list_platforms(struct vaccel_session *sess);
 int vaccel_noop(struct vaccel_session *sess);
 int vaccel_sgemm(struct vaccel_session *sess,
 		uint32_t k, uint32_t m, uint32_t n,

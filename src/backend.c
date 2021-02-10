@@ -3,6 +3,7 @@
 #include <stdint.h>
 #include <string.h>
 #include <dlfcn.h>
+#include <stdio.h>
 
 #include "backend.h"
 #include "common.h"
@@ -85,6 +86,7 @@ int cleanup_backend(struct vaccel_backend *backend)
 
 	/* name should always be non-NULL */
 	if (backend->name) {
+		fprintf(stderr, "%s\n", backend->name);
 		assert(0 && "Backend name not set");
 		free(backend->name);
 	}
