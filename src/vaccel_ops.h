@@ -4,12 +4,15 @@
 #include <stddef.h>
 #include <stdint.h>
 
+#include "api/ml.h"
+
 #define VACCEL_NO_OP        0
 #define VACCEL_BLAS_SGEMM   1
 #define VACCEL_IMG_CLASS    2
 #define VACCEL_IMG_DETEC    3
 #define VACCEL_IMG_SEGME    4
-#define VACCEL_FUNCTIONS_NR 5
+#define VACCEL_ML_INFERENCE 5
+#define VACCEL_FUNCTIONS_NR 6
 
 static const char *vaccel_op_name[] = {
 	"noop",
@@ -17,6 +20,7 @@ static const char *vaccel_op_name[] = {
 	"image-classification",
 	"image-detection",
 	"image-segmentation",
+	"ml-inference",
 };
 
 inline static const char *vaccel_op_type_str(uint8_t op_type)
