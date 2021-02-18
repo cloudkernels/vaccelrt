@@ -41,7 +41,7 @@ jobs:
     - name: Build project
       id: build_vaccelrt
       run: |
-        . $HOME/.cargo/env
+        . $HOME/.cargo/env || true
         cargo --version
         rustc --version
         mkdir -p ${{ github.workspace }}/build_${{ matrix.build_type }}
