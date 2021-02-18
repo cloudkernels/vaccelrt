@@ -12,7 +12,9 @@ on:
 
 jobs:
   build:
-    runs-on: gpu, ${{ matrix.arch }}
+    runs-on: 
+    - gpu
+    - ${{ matrix.arch }}
 
     strategy:
       matrix:
