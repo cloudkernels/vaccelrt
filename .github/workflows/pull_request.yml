@@ -12,7 +12,7 @@ on:
 
 jobs:
   build:
-    runs-on: self-hosted, gpu, ${{ matrix.arch }}
+    runs-on: [self-hosted, gpu, ${{ matrix.arch }}]
 
     strategy:
       matrix:
