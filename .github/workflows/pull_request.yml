@@ -4,16 +4,20 @@ on:
   pull_request:
     branches:
       - master
+  push:
+    branches:
+      - actions-testing
 
   workflow_dispatch:
 
 jobs:
   build:
-    runs-on: self-hosted
+    runs-on: self-hosted, gpu, ${{ matrix.arch }}
 
     strategy:
       matrix:
         build_type: [Debug, Release]
+        arch: [aarch64, x86_64]
 
     steps:
     - name: Cleanup pervious jobs
