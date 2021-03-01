@@ -57,7 +57,7 @@ jobs:
           cargo --version
           rustc --version
           mkdir -p /work/build_$BUILD_TYPE
-          cd build_$BUILD_TYPE
+          cd /work/build_$BUILD_TYPE
           cmake /work \
               -DCMAKE_INSTALL_PREFIX=/work/artifacts/$ARCHCONFIG/$BUILD_TYPE/opt \
               -DCMAKE_BUILD_TYPE=$BUILD_TYPE \
