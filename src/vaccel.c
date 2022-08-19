@@ -159,14 +159,7 @@ const char *vaccel_rundir(void)
 __attribute__((constructor))
 static void vaccel_init(void)
 {
-	int ret = VACCEL_EINVAL;
-
-	/* Initialize logger */
-	vaccel_log_init();
-
-	vaccel_debug("Initializing vAccel");
-
-	ret = create_vaccel_rundir();
+	int ret = create_vaccel_rundir();
 	if (ret) {
 		vaccel_error("Could not create rundir for vAccel");
 		exit(ret);
@@ -183,6 +176,11 @@ static void vaccel_init(void)
 		vaccel_error("Could not bootstrap resources system");
 		exit(ret);
 	}
+
+	/* Initialize logger */
+	vaccel_log_init();
+
+	vaccel_debug("Initializing vAccel");
 
 	/* initialize the backends system */
 	plugins_bootstrap();
