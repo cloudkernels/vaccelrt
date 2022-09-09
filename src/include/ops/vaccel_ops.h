@@ -38,6 +38,10 @@ enum vaccel_op_type {
 	VACCEL_TF_SESSION_LOAD,     /* 12 */
 	VACCEL_TF_SESSION_RUN,      /* 13 */
 	VACCEL_TF_SESSION_DELETE,   /* 14 */
+	VACCEL_F_ARRAYCOPY,			/* 15 */
+	VACCEL_F_MMULT,				/* 16 */
+	VACCEL_F_PARALLEL,			/* 17 */
+	VACCEL_F_VECTORADD,			/* 18 */
 	VACCEL_FUNCTIONS_NR
 };
 
@@ -57,6 +61,10 @@ static const char *vaccel_op_name[] = {
 	"TensorFlow session load",
 	"TensorFlow session run",
 	"TensorFlow session delete",
+	"fpga class : Array copy",
+	"fpga class : Matrix multiplication",
+	"fpga class : Parallel acceleration",
+	"fpga class : Vector Add ",
 };
 
 static inline const char *vaccel_op_type_str(enum vaccel_op_type op_type)
