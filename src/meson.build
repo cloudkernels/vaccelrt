@@ -17,7 +17,8 @@ vaccel_headers = files([
   'resources.h',
 ])
 
-vaccel_plugin_source = files('plugin.c')
+vaccel_utils_c = files('utils.c')
+vaccel_plugin_c = files('plugin.c')
 vaccel_sources = files([
   'log.c',
   'misc.c',
@@ -25,7 +26,6 @@ vaccel_sources = files([
   'resources.c',
   'vaccel.c',
   'id_pool.c',
-  'utils.c',
 ])
 
 subdir('include')
@@ -33,7 +33,9 @@ subdir('resources')
 subdir('ops')
 subdir('profiling')
 
-vaccel_sources += [vaccel_plugin_source, vaccel_headers, vaccel_h]
+vaccel_sources += [
+  vaccel_plugin_c, vaccel_utils_c,
+  vaccel_headers, vaccel_h]
 vaccel_includes = include_directories('include')
 vaccel_src_includes = include_directories('.')
 

@@ -31,7 +31,7 @@ examples_sources = [
 
 foreach e : examples_sources
   exe = executable(e.split('.')[0],
-    files(e),
+    files(e) + vaccel_utils_c + vaccel_headers,
     c_args : vaccel_cargs,
     cpp_args : vaccel_cargs,
     include_directories : vaccel_includes,

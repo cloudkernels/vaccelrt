@@ -1,5 +1,5 @@
 test_sources = ['test_backend.cpp']
-test_sources += [vaccel_plugin_source, vaccel_headers]
+test_sources += [vaccel_plugin_c, vaccel_headers]
 
 e = executable('backend_tests',
   sources : test_sources,
