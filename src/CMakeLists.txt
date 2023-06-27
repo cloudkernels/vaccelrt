@@ -4,7 +4,7 @@ file(GLOB_RECURSE sources *.c)
 # core runtime headers
 file(GLOB_RECURSE headers *.h)
 
-add_library(vaccel SHARED ${headers} ${sources})
+add_library(vaccel ${headers} ${sources})
 target_compile_options(vaccel PUBLIC -Wall -Wextra -Werror -pthread)
 target_include_directories(vaccel PRIVATE ${CMAKE_SOURCE_DIR}/src)
 target_include_directories(vaccel PRIVATE ${CMAKE_SOURCE_DIR}/src/include)

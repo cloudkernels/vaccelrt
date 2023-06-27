@@ -23,6 +23,7 @@
 #include <stddef.h>
 #include <string.h>
 #include <time.h>
+#include <stdio.h>
 
 #define MIN_SAMPLES 1024
 #define MAX_NAME 256

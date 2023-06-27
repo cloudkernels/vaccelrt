@@ -5,6 +5,8 @@ project(vaccelrt
 	DESCRIPTION "VaccelRT library"
 	LANGUAGES C CXX)
 
+option(BUILD_SHARED_LIBS "Build using shared libraries" ON)
+
 # Configuration time options
 option(BUILD_PLUGIN_EXEC "Build the exec plugin" OFF)
 option(BUILD_PLUGIN_NOOP "Build the no-op debugging plugin" OFF)
