@@ -29,8 +29,11 @@ struct vaccel_plugin_info {
 	/* Name of the plugin */
 	const char *name;
 
-	/* human-readable version number */
+	/* Human-readable version number */
 	const char *version;
+
+	/* Human-readable minimum required vAccelRT version number */
+	const char *min_vaccelrt_version;
 
 	/* Plugin initialization function */
 	int (*init)(void);

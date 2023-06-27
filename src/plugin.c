@@ -23,6 +23,7 @@
 #include "list.h"
 #include "ops/vaccel_ops.h"
 #include "log.h"
+#include "vaccel.h"
 
 static struct {
 	/* true if sub-system is initialized */
@@ -60,6 +61,54 @@ static int check_plugin_info(const struct vaccel_plugin_info *pinfo)
 	return VACCEL_OK;
 }
 
+static int plugin_version_to_int(int *major, int *minor1, int *minor2,
+		char *str)
+{
+	if (!str)
+		return VACCEL_EINVAL;
+
+	char *token = strtok(&str[1], ".");
+	if (!token)
+		return VACCEL_EINVAL;
+	*major = atoi(token);
+
+	token = strtok(NULL, ".");
+	if (!token)
+		return VACCEL_EINVAL;
+	*minor1 = atoi(token);
+
+	token = strtok(NULL, ".");
+	if (!token)
+		return VACCEL_EINVAL;
+	*minor2 = atoi(token);
+
+	return VACCEL_OK;
+}
+
+static int check_plugin_version(const struct vaccel_plugin_info *pinfo)
+{
+	char *min_version = strtok(strdup(pinfo->min_vaccelrt_version), "-");
+	if (!min_version)
+		return VACCEL_EINVAL;
+
+	int major, minor1, minor2;
+	if (plugin_version_to_int(&major, &minor1, &minor2, min_version))
+		return VACCEL_EINVAL;
+
+	int vmajor, vminor1, vminor2;
+	if (plugin_version_to_int(&vmajor, &vminor1, &vminor2,
+				strdup(VACCELRT_VERSION)))
+		return VACCEL_EINVAL;
+
+	if (major > vmajor || minor1 > vminor1 || minor2 > vminor2) {
+		vaccel_error("Plugin requires vAccelRT>=%s (got %s)",
+				pinfo->min_vaccelrt_version, VACCELRT_VERSION);
+		return VACCEL_EINVAL;
+	}
+
+	return VACCEL_OK;
+}
+
 static int is_virtio_plugin(const struct vaccel_plugin_info *pinfo)
 {
 	return pinfo->sess_init && pinfo->sess_free;
@@ -86,6 +135,9 @@ int register_plugin(struct vaccel_plugin *plugin)
 		return VACCEL_EINVAL;
 
 	if (check_plugin_info(plugin->info))
+		return VACCEL_EINVAL;
+
+	if (check_plugin_version(plugin->info))
 		return VACCEL_EINVAL;
 
 	const struct vaccel_plugin_info *info = plugin->info;

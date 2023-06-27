@@ -125,5 +125,6 @@ static int fini(void)
 VACCEL_MODULE(
 		.name = "exec",
 		.version = VACCELRT_VERSION,
+		.min_vaccelrt_version = VACCELRT_VERSION,
 		.init = init,
 		.fini = fini)
