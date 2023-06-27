@@ -26,5 +26,7 @@ int get_available_plugins(enum vaccel_op_type op_type);
 struct vaccel_plugin *get_virtio_plugin(void);
 int plugins_bootstrap(void);
 int plugins_shutdown(void);
+int parse_plugin_version(int *major, int *minor1, int *minor2, char **extra,
+		const char *str);
 
 #endif /* __PLUGIN_H__ */

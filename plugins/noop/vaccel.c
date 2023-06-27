@@ -604,6 +604,7 @@ VACCEL_MODULE(
 	.name = "noop",
 	.version = VACCELRT_VERSION,
 	.type = VACCEL_PLUGIN_DEBUG,
+	.vaccelrt_version = VACCELRT_VERSION,
 	.init = init,
 	.fini = fini
 )
