@@ -1,7 +1,10 @@
-cmake_minimum_required(VERSION 3.10)
+cmake_minimum_required(VERSION 3.11)
+
+list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
+include(SetGitVersion)
 
 project(vaccelrt
-	VERSION 0.5.0
+	VERSION ${VACCELRT_VERSION_BASE}
 	DESCRIPTION "VaccelRT library"
 	LANGUAGES C CXX)
 
@@ -73,3 +76,29 @@ set(CPACK_PACKAGE_VERSION_PATCH ${PROJECT_VERSION_PATCH})
 
 
 include(CPack)
+
+install(
+	EXPORT vAccelTargets
+	FILE vaccel-targets.cmake
+	DESTINATION "${CMAKE_INSTALL_DATADIR}"
+	#	NAMESPACE YourLibrary::
+)
+
+set(INCLUDE_INSTALL_DIR include)
+
+include(CMakePackageConfigHelpers)
+configure_package_config_file(
+	vaccel-config.cmake.in
+	"${CMAKE_CURRENT_BINARY_DIR}/vaccel-config.cmake"
+	INSTALL_DESTINATION "${CMAKE_INSTALL_DATADIR}/vaccel/cmake"
+	PATH_VARS INCLUDE_INSTALL_DIR)
+write_basic_package_version_file(
+	"${CMAKE_CURRENT_BINARY_DIR}/vaccel-config-version.cmake"
+	VERSION ${CMAKE_PROJECT_VERSION}
+	COMPATIBILITY SameMajorVersion)
+
+install(
+	FILES "${CMAKE_CURRENT_BINARY_DIR}/vaccel-config.cmake"
+	"${CMAKE_CURRENT_BINARY_DIR}/vaccel-config-version.cmake"
+	DESTINATION "${CMAKE_INSTALL_DATADIR}/vaccel/cmake"
+)
