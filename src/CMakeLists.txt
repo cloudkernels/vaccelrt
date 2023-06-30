@@ -27,6 +27,16 @@ install(TARGETS vaccel
 )
 install(DIRECTORY include/ DESTINATION ${CMAKE_INSTALL_INCLUDEDIR} PATTERN "*.in" EXCLUDE)
 
+# Install vaccel-targets.cmake
+install(EXPORT vAccelTargets
+	FILE vaccel-targets.cmake
+	DESTINATION "${CMAKE_INSTALL_DATADIR}"
+	#	NAMESPACE YourLibrary::
+)
+
+# Install local vaccel-targets.cmake (build dir)
+export(TARGETS vaccel FILE vaccel-targets.cmake)
+
 # Create the pkg-config file
 set(DEST_DIR "${CMAKE_INSTALL_PREFIX}")
 CONFIGURE_FILE("vaccel.pc.in" "vaccel.pc" @ONLY)

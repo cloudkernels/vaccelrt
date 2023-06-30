@@ -5,7 +5,7 @@ set(FOO_VERSION x.y.z)
 #include(CMakeFindDependencyMacro)
 #find_dependency(Threads)
 
-include("${PACKAGE_PREFIX_DIR}/share/vaccel-targets.cmake")
+include("@PACKAGE_CONFIG_DIR@/vaccel-targets.cmake")
 
 set_and_check(vaccel_INCLUDE_DIR "@PACKAGE_INCLUDE_INSTALL_DIR@")
 

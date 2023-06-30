@@ -74,31 +74,37 @@ set(CPACK_PACKAGE_VERSION_MAJOR ${PROJECT_VERSION_MAJOR})
 set(CPACK_PACKAGE_VERSION_MINOR ${PROJECT_VERSION_MINOR})
 set(CPACK_PACKAGE_VERSION_PATCH ${PROJECT_VERSION_PATCH})
 
-
 include(CPack)
 
+include(CMakePackageConfigHelpers)
+
+# Generate and install vaccel-config(-version).cmake
+set(CONFIG_DIR "share")
+set(INCLUDE_INSTALL_DIR "include")
+configure_package_config_file(
+	vaccel-config.cmake.in
+	"${CMAKE_CURRENT_BINARY_DIR}/src/vaccel-config.cmake"
+	INSTALL_DESTINATION "${CMAKE_INSTALL_DATADIR}/vaccel/cmake"
+	PATH_VARS CONFIG_DIR INCLUDE_INSTALL_DIR)
+write_basic_package_version_file(
+	"${CMAKE_CURRENT_BINARY_DIR}/src/vaccel-config-version.cmake"
+	VERSION ${CMAKE_PROJECT_VERSION}
+	COMPATIBILITY SameMajorVersion)
 install(
-	EXPORT vAccelTargets
-	FILE vaccel-targets.cmake
-	DESTINATION "${CMAKE_INSTALL_DATADIR}"
-	#	NAMESPACE YourLibrary::
+	FILES "${CMAKE_CURRENT_BINARY_DIR}/src/vaccel-config.cmake"
+	"${CMAKE_CURRENT_BINARY_DIR}/src/vaccel-config-version.cmake"
+	DESTINATION "${CMAKE_INSTALL_DATADIR}/vaccel/cmake"
 )
 
-set(INCLUDE_INSTALL_DIR include)
-
-include(CMakePackageConfigHelpers)
+# Generate and install local vaccel-config(-version).cmake (build dir)
+set(CONFIG_DIR "${CMAKE_CURRENT_BINARY_DIR}/src")
+set(INCLUDE_INSTALL_DIR "${CMAKE_SOURCE_DIR}/src/include")
 configure_package_config_file(
 	vaccel-config.cmake.in
 	"${CMAKE_CURRENT_BINARY_DIR}/vaccel-config.cmake"
 	INSTALL_DESTINATION "${CMAKE_INSTALL_DATADIR}/vaccel/cmake"
-	PATH_VARS INCLUDE_INSTALL_DIR)
+	PATH_VARS CONFIG_DIR INCLUDE_INSTALL_DIR)
 write_basic_package_version_file(
 	"${CMAKE_CURRENT_BINARY_DIR}/vaccel-config-version.cmake"
 	VERSION ${CMAKE_PROJECT_VERSION}
 	COMPATIBILITY SameMajorVersion)
-
-install(
-	FILES "${CMAKE_CURRENT_BINARY_DIR}/vaccel-config.cmake"
-	"${CMAKE_CURRENT_BINARY_DIR}/vaccel-config-version.cmake"
-	DESTINATION "${CMAKE_INSTALL_DATADIR}/vaccel/cmake"
-)
