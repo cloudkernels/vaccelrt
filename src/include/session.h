@@ -32,12 +32,18 @@ struct vaccel_session {
 	/* session-specific resources */
 	struct session_resources *resources;
 
+	/* plugin preference */
+	unsigned int hint;
+
 	/* backend private data */
 	void *priv;
 };
 
 /* Initialize a new session with the runtime */
 int vaccel_sess_init(struct vaccel_session *sess, uint32_t flags);
+
+/* Update a session with new flags */
+int vaccel_sess_update(struct vaccel_session *sess, uint32_t flags);
 
 /* Tear down a session */
 int vaccel_sess_free(struct vaccel_session *sess);
