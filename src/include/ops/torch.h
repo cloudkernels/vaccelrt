@@ -118,7 +118,6 @@ int vaccel_torch_jitload_forward(struct vaccel_session *sess,
 // struct vaccel_arg *write -> char **tags
 int vaccel_torch_jitload_forward(struct vaccel_session *sess,
 		const struct vaccel_torch_saved_model *model, 
-		const struct vaccel_torch_buffer *run_options,
 		struct vaccel_torch_tensor **in_tensor,
 		int nr_read,
 		struct vaccel_torch_tensor **out_tensor,

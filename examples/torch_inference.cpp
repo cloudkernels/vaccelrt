@@ -179,7 +179,7 @@ main (int argc, char **argv)
   // struct vaccel_torch_tensor *out = vaccel_torch_tensor_new(4, dims, VACCEL_TORCH_FLOAT);
   /* Conducting torch inference */
   ret = vaccel_torch_jitload_forward (&sess,
-				      &model, &run_options, &in, 1, &out, 1);
+				      &model, &in, 1, &out, 1);
 
   if (ret)
     {

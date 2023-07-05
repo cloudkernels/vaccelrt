@@ -390,7 +390,6 @@ static int v_mmult(struct vaccel_session *session, float *a, float *b, float *c,
 // Torch NOOP test
 static int noop_torch_jitload_forward(struct vaccel_session *session, 
 		const struct vaccel_torch_saved_model *model,
-		const struct vaccel_torch_buffer *run_options,
 		struct vaccel_torch_tensor **in_tensor,
 		int nr_read,
 		/*char **tags, */

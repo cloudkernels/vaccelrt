@@ -203,7 +203,6 @@ int vaccel_torch_jitload_forward(struct vaccel_session *sess,
 // struct vaccel_arg *write -> char **tags
 int vaccel_torch_jitload_forward(struct vaccel_session *sess,
 		const struct vaccel_torch_saved_model *model,
-		const struct vaccel_torch_buffer *run_options,
 		struct vaccel_torch_tensor **in_tensor,
 		int nr_read, 
 		struct vaccel_torch_tensor **out_tensor,
@@ -219,7 +218,6 @@ int vaccel_torch_jitload_forward(struct vaccel_session *sess,
 	int (*plugin_op)(
 			struct vaccel_session *,
 			const struct vaccel_torch_saved_model *, 
-		    const struct vaccel_torch_buffer *,
 			struct vaccel_torch_tensor **,
 			int,
 			struct vaccel_torch_tensor **,
@@ -229,7 +227,7 @@ int vaccel_torch_jitload_forward(struct vaccel_session *sess,
 	if (!plugin_op)
 		return VACCEL_ENOTSUP;
 	// write -> tags
-	return plugin_op(sess, model, run_options, in_tensor, nr_read, out_tensor, nr_write);
+	return plugin_op(sess, model, in_tensor, nr_read, out_tensor, nr_write);
 }
 
 int vaccel_torch_sgemm(struct vaccel_session *sess,
