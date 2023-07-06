@@ -37,11 +37,9 @@ static int exec(struct vaccel_session *session, const char *library, const char
 		*fn_symbol, void *read, size_t nr_read, void *write,
 		size_t nr_write)
 {
-	int i = 0;
 	void *dl;
 	int (*fptr)(void *, size_t, void *, size_t);
 	int ret;
-	struct vaccel_arg *args;
 
 	vaccel_debug("Calling exec for session %u", session->session_id);
 
@@ -70,11 +68,9 @@ static int exec(struct vaccel_session *session, const char *library, const char
 static int exec_with_resource(struct vaccel_session *session, struct vaccel_shared_object *object, const char *fn_symbol, void *read, size_t nr_read, void *write,
 							  size_t nr_write)
 {
-	int i = 0;
 	void *dl;
 	int (*fptr)(void *, size_t, void *, size_t);
 	int ret;
-	struct vaccel_arg *args;
 	struct vaccel_file *file;
 
 	vaccel_debug("Calling exec_with_resource for session %u", session->session_id);
