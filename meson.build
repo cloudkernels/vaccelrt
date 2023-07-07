@@ -1,24 +1,49 @@
 project('vaccel', 'c', 'cpp',
-  default_options: ['c_std=c11'],
-  license: 'Apache-2.0')
-
+  meson_version : '>=1.1',
+  default_options : ['c_std=c11'],
+  license : 'Apache-2.0',
+  license_files : 'LICENSE',
+  version : run_command('scripts/generate-version.sh',
+    check: false).stdout().strip())
 
 vaccel_cargs = ['-Wall','-Wextra','-Werror']
 plugins_cargs = ['-Wno-unused']
 
 vaccel_version = run_command('scripts/generate-version.sh',
-  meson.source_root(),
+  meson.project_source_root(),
   check: false).stdout().strip()
 
 libvaccel_version = vaccel_version.split('-')[0]
 
-cmake = import('cmake')
-cmake_opts = cmake.subproject_options()
-cmake_opts.add_cmake_defines({'CMAKE_POSITION_INDEPENDENT_CODE': true})
-slog_subproj = cmake.subproject('slog', options: cmake_opts)
-slog_dep = slog_subproj.dependency('slog')
+meson.add_dist_script('scripts/dist.sh')
+
+slog_subproj = subproject('slog')
+#libslog_dep = slog_subproj.get_variable('libslog_dep')
+libslog_dep = dependency('slog')
+
+gtest_subproj = subproject('gtest') 
+#gtest_main_dep = gtest_subproj.get_variable('gtest_main_dep') 
+gtest_main_dep = dependency('gtest_main')
 
 subdir('src')
-
 subdir('plugins')
 subdir('python')
+
+opt_examples = get_option('examples')
+if opt_examples.enabled()
+  subdir('examples')
+endif
+
+opt_tests = get_option('tests')
+if opt_tests.enabled()
+  subdir('test')
+endif
+
+summary({
+  'Build the exec plugin': opt_plugin_exec,
+  'Build the no-op debugging plugin': opt_plugin_noop,
+  'Build the examples': opt_examples,
+  'Enable testing': opt_tests,
+  },
+  section : 'Configuration',
+  bool_yn : true)

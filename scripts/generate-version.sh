@@ -3,11 +3,7 @@
 SRC_DIR="$1"
 DEFAULT_VERSION="v0.0.0"
 
-if [ -z "${SRC_DIR}" ]
-then
-	echo ${DEFAULT_VERSION}
-	exit 1
-fi
+[ -n "${SRC_DIR}" ] || SRC_DIR="$(dirname "$0")/.."
 
 if [ -f "$SRC_DIR"/.version ]
 then

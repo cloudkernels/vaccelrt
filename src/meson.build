@@ -17,10 +17,10 @@ vaccel_headers = files([
   'resources.h',
 ])
 
+vaccel_plugin_source = files('plugin.c')
 vaccel_sources = files([
   'log.c',
   'misc.c',
-  'plugin.c',
   'session.c',
   'resources.c',
   'vaccel.c',
@@ -33,17 +33,22 @@ subdir('resources')
 subdir('ops')
 subdir('profiling')
 
-vaccel_sources += vaccel_headers
-vaccel_sources += vaccel_h
+vaccel_sources += [vaccel_plugin_source, vaccel_headers, vaccel_h]
 vaccel_includes = include_directories('include')
+vaccel_src_includes = include_directories('.')
 
-libvaccel_deps = [dependency('threads'), dependency('dl')]
+threads_dep = dependency('threads')
+libvaccel_deps = [
+  threads_dep,
+  dependency('dl'),
+  libslog_dep,
+]
 libvaccel = library('vaccel',
   vaccel_sources,
   version: libvaccel_version,
   c_args : vaccel_cargs,
   include_directories : vaccel_includes,
-  dependencies : [libvaccel_deps, slog_dep],
+  dependencies : libvaccel_deps,
   install : true)
 
 libvaccel_private = declare_dependency(
@@ -54,7 +59,6 @@ libvaccel_private = declare_dependency(
 
 pkg_mod = import('pkgconfig')
 pkg_mod.generate(libvaccel,
-  libraries : libvaccel,
   version : libvaccel_version,
   name : 'vaccel',
   description : 'Hardware Acceleration for Serverless Computing')

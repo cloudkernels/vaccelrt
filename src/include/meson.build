@@ -32,4 +32,4 @@ vaccel_public_headers = files([
 
 vaccel_public_headers += include_vaccel_h
 
-install_headers(vaccel_public_headers, preserve_path : true)
+install_headers(vaccel_public_headers, subdir : 'vaccel', preserve_path : true)
