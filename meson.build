@@ -15,8 +15,6 @@ vaccel_version = run_command('scripts/generate-version.sh',
 
 libvaccel_version = vaccel_version.split('-')[0]
 
-meson.add_dist_script('scripts/dist.sh')
-
 slog_subproj = subproject('slog')
 #libslog_dep = slog_subproj.get_variable('libslog_dep')
 libslog_dep = dependency('slog')
@@ -47,3 +45,15 @@ summary({
   },
   section : 'Configuration',
   bool_yn : true)
+
+meson.add_dist_script(
+  'scripts/dist.sh',
+  'vaccel',
+  'plugin-exec',
+  opt_plugin_exec.enabled() ? 'enabled' : 'disabled',
+  'plugin-noop',
+  opt_plugin_noop.enabled() ? 'enabled' : 'disabled',
+  'examples',
+  opt_examples.enabled() ? 'enabled' : 'disabled',
+  'tests',
+  opt_tests.enabled() ? 'enabled' : 'disabled')
