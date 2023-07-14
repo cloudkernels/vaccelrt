@@ -44,5 +44,5 @@ mytestlib = library('mytestlib',
   install : true)
 
 foreach d : ['models', 'images', 'input']
-  install_subdir(d, install_dir : 'share')
+  install_subdir(d, install_dir : 'share/vaccel')
 endforeach

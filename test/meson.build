@@ -7,4 +7,4 @@ e = executable('backend_tests',
   include_directories : vaccel_src_includes,
   dependencies : [libvaccel_deps, gtest_main_dep])
 
-#test('backends_tests', e, protocol : 'gtest')
+test('backends_tests', e, protocol : 'gtest')
