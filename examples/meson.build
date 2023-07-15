@@ -33,6 +33,7 @@ foreach e : examples_sources
   exe = executable(e.split('.')[0],
     files(e),
     c_args : vaccel_cargs,
+    cpp_args : vaccel_cargs,
     include_directories : vaccel_includes,
     dependencies : [libvaccel_private],
     install : true)

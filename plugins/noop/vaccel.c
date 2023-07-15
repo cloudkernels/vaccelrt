@@ -316,7 +316,6 @@ static int noop_tf_session_delete(
 
 static int v_arraycopy(struct vaccel_session *session, int *a, int *b, size_t c)
 {
-	int i = 0;
 	fprintf(stdout, "[noop] Calling v_arraycopy for session %u\n",
 		session->session_id);
 
@@ -324,7 +323,7 @@ static int v_arraycopy(struct vaccel_session *session, int *a, int *b, size_t c)
 	fprintf(stdout, "[noop] size: %zu \n", c);
 
 	/* Fill output with dummy values */
-	for (i = 0; i < c ; i++) {
+	for (size_t i = 0; i < c ; i++) {
 		b[i] = 9.1;
 	}
 
@@ -335,7 +334,6 @@ static int v_arraycopy(struct vaccel_session *session, int *a, int *b, size_t c)
 static int v_vectoradd(struct vaccel_session *session, float *a, float *b,
 				                       float *c, size_t len_a, size_t len_b)
 {
-	int i = 0;
 	fprintf(stdout, "[noop] Calling v_vectoradd for session %u\n",
 		session->session_id);
 
@@ -343,7 +341,7 @@ static int v_vectoradd(struct vaccel_session *session, float *a, float *b,
 	fprintf(stdout, "[noop] len_a: %zu len_b: %zu \n", len_a, len_b);
 
 	/* Fill output with dummy values */
-	for (i = 0; i < len_a ; i++) {
+	for (size_t i = 0; i < len_a ; i++) {
 		c[i] = 9.1;
 	}
 
@@ -354,7 +352,6 @@ static int v_vectoradd(struct vaccel_session *session, float *a, float *b,
 static int v_parallel(struct vaccel_session *session, float *a, float *b,
 				                      float *add_out, float *mult_out, size_t len_a)
 {
-	int i = 0;
 	fprintf(stdout, "[noop] Calling v_parallel for session %u\n",
 		session->session_id);
 
@@ -362,7 +359,7 @@ static int v_parallel(struct vaccel_session *session, float *a, float *b,
 	fprintf(stdout, "[noop] len_a: %zu\n", len_a);
 
 	/* Fill output with dummy values */
-	for (i = 0; i < len_a ; i++) {
+	for (size_t i = 0; i < len_a ; i++) {
 		add_out[i] = 9.1;
 		mult_out[i] = 18.2;
 	}
@@ -373,7 +370,6 @@ static int v_parallel(struct vaccel_session *session, float *a, float *b,
 static int v_mmult(struct vaccel_session *session, float *a, float *b, float *c,
 				                   float *d_out, size_t len_a)
 {
-	int i = 0;
 	fprintf(stdout, "[noop] Calling v_mmult for session %u\n",
 		session->session_id);
 
@@ -381,7 +377,7 @@ static int v_mmult(struct vaccel_session *session, float *a, float *b, float *c,
 	fprintf(stdout, "[noop] len_a: %zu\n", len_a);
 
 	/* Fill output with dummy values */
-	for (i = 0; i < len_a ; i++) {
+	for (size_t i = 0; i < len_a ; i++) {
 		d_out[i] = 9.1;
 	}
 	return VACCEL_OK;
@@ -460,18 +456,17 @@ static int noop_torch_sgemm(struct vaccel_session *session,
 static int noop_opencv(struct vaccel_session *sess, struct vaccel_arg *read,
 		     size_t nr_read, struct vaccel_arg *write, size_t nr_write)
 {
-	int i = 0;
 	fprintf(stdout, "[noop] Calling opencv for session %u\n",
 		sess->session_id);
 
 	fprintf(stdout, "[noop] Dumping arguments for opencv:\n");
 	fprintf(stdout, "[noop] nr_read: %zu nr_write: %zu\n", nr_read, nr_write);
 	fprintf(stdout, "[noop] [OpenCV] function: %u\n", *(uint8_t*)read[0].buf);
-	for (i = 1 ; i < nr_read; i++) {
-		fprintf(stdout, "[noop] opencv read[%d] size: %u\n", i, read[i].size);
+	for (size_t i = 1 ; i < nr_read; i++) {
+		fprintf(stdout, "[noop] opencv read[%zu] size: %u\n", i, read[i].size);
 	}
-	for (i = 0 ; i < nr_write; i++) {
-		fprintf(stdout, "[noop] opencv write[%d] size: %u\n", i, write[i].size);
+	for (size_t i = 0 ; i < nr_write; i++) {
+		fprintf(stdout, "[noop] opencv write[%zu] size: %u\n", i, write[i].size);
 		size_t *header;
 		header = write[i].buf;
 		header[0] = write[i].size/sizeof(float);
