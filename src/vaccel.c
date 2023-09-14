@@ -18,6 +18,11 @@
 #include "vaccel.h"
 #include "resources.h"
 #include "utils.h"
+#include "id_pool.h"
+#include "error.h"
+#include "list.h"
+
+
 
 #include <sys/stat.h>
 #include <unistd.h>

@@ -39,12 +39,6 @@ void tearDown(void) {
 
 }
 
-
-
-void test_plugin_true(void) {
-    TEST_ASSERT_EQUAL_INT(0,0);
-}
-
 void test_plugin_null(void) {
     TEST_ASSERT_EQUAL(register_plugin(NULL), VACCEL_EINVAL);
 }
