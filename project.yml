@@ -9,10 +9,10 @@
   :use_exceptions: FALSE
   :use_test_preprocessor: TRUE
   :use_auxiliary_dependencies: TRUE
-  :build_root: build
+  :build_root: build_test
 #  :release_build: TRUE
   :test_file_prefix: test_
-  :which_ceedling: vendor/ceedling
+  :which_ceedling: gem
   :ceedling_version: 0.31.1
   :default_tasks:
     - test:all
@@ -30,17 +30,15 @@
   :executable: .out
 
 :paths:
+  :include:
+    - reqs/include/**
   :test:
-    - +:unit_test/**
-    - -:unit_test/support
+    - +:test/**
+    - -:test/support
   :source:
     - src/**
-    - src/include/**
-    - src/include/ops/**
-    - src/ops/**
-    - third-party/**
   :support:
-    - unit_test/support
+    - test/support
   :libraries: []
 
 :defines:
@@ -93,15 +91,14 @@
   :flag: "-l${1}"
   :path_flag: "-L ${1}"
   :system: []    # for example, you might list 'm' to grab the math library
-  :test: []
-  :release:
-    - -Lbuild/src -lvaccel 
+  :test: 
+    - vaccel
+  :release: []
 
 :plugins:
   :load_paths:
-    - vendor/ceedling/plugins
+    - "#{Ceedling.load_path}"
   :enabled:
     - stdout_pretty_tests_report
     - module_generator
-    - raw_output_report
 ...

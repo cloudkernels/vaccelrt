@@ -19,3 +19,5 @@ build*
 .cache
 .ccls-cache
 .vscode
+_hidefolder
+test_google
