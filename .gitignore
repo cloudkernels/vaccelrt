@@ -10,12 +10,13 @@ compile_commands.json
 CTestTestfile.cmake
 _deps
 **/.*.swp
-**/*.so
 .clangd
 cscope.out
 build*
 **target
 
+build
+build_test
 .cache
 .ccls-cache
 .vscode
