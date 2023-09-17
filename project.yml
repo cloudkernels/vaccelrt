@@ -25,6 +25,7 @@
 #  :use_assembly: FALSE
 
 :environment:
+  - :VACCEL_BACKENDS: ./reqs/lib/libvaccel-noop.so
 
 :extension:
   :executable: .out
@@ -90,10 +91,9 @@
   :placement: :end
   :flag: "-l${1}"
   :path_flag: "-L ${1}"
-  :system: []    # for example, you might list 'm' to grab the math library
+  :system: []
   :test: 
-    - reqs/lib/libvaccel.so
-    - reqs/lib/libvaccel-noop.so
+    - vaccel
   :release: []
 
 :plugins:

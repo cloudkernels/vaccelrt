@@ -40,10 +40,9 @@ void test_vaccel_noop_valid(void)
     TEST_ASSERT_EQUAL(VACCEL_OK, ret);
 
     ret = vaccel_noop(&sess);
-    // TEST_ASSERT_EQUAL_INT(VACCEL_OK, result); // this will fail as its not getting the plugin operation.
 
     TEST_ASSERT_EQUAL(VACCEL_OK, vaccel_sess_free(&sess));
-    // TEST_ASSERT_NOT_EQUAL(VACCEL_ENOTSUP, ret);
+    TEST_ASSERT_NOT_EQUAL(VACCEL_ENOTSUP, ret);
 
     // printf("Memory address of x: %p\n", (void *)&ret);
     // printf("Value at that address: %d\n", ret);
