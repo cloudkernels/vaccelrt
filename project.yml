@@ -92,7 +92,8 @@
   :path_flag: "-L ${1}"
   :system: []    # for example, you might list 'm' to grab the math library
   :test: 
-    - vaccel
+    - reqs/lib/libvaccel.so
+    - reqs/lib/libvaccel-noop.so
   :release: []
 
 :plugins:

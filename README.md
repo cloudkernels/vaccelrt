@@ -1,6 +1,17 @@
+Testing build:
+
+Uses ceedling for framework + Ruby 3.0.5
+
+Higher versions of ruby doesn't work with the framework at the moment.
+
+
 Testing results - tests only use the shared library now. 
 
 Next step: check if output of API calls are as expected.
+
+
+test_a.c is just a basic test - just to make sure the framework itself is working.
+
 
 ```
 Test 'test_a.c'
