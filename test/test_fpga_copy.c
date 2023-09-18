@@ -46,7 +46,7 @@ void test_vaccel_arraycopy_valid(void)
 
     ret = vaccel_fpga_arraycopy(&sess, input_array, output_array, len_input_array);
 
-    printf("The value of the integer is: %d\n", ret);
+    // printf("The value of the integer is: %d\n", ret);
 
     TEST_ASSERT_EQUAL(VACCEL_OK, vaccel_sess_free(&sess));
     TEST_ASSERT_NOT_EQUAL(VACCEL_ENOTSUP, ret);
@@ -54,7 +54,7 @@ void test_vaccel_arraycopy_valid(void)
 
     printf("{");
     for (size_t i = 0; i < len_input_array; i++) {
-        printf("%f", output_array[i]);
+        printf("%d", output_array[i]);
         if (i < len_input_array - 1) {
             printf(".");
         }

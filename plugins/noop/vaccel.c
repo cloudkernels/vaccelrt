@@ -324,7 +324,7 @@ static int v_arraycopy(struct vaccel_session *session, int *a, int *b, size_t c)
 
 	/* Fill output with dummy values */
 	for (i = 0; i < c ; i++) {
-		b[i] = 9.1;
+		b[i] = a[i];
 	}
 
 
@@ -343,7 +343,7 @@ static int v_vectoradd(struct vaccel_session *session, float *a, float *b,
 
 	/* Fill output with dummy values */
 	for (i = 0; i < len_a ; i++) {
-		c[i] = 9.1;
+		c[i] = a[i] + b[i];
 	}
 
 

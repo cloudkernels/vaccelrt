@@ -38,9 +38,12 @@ void test_vaccel_vadd_valid(void)
     struct vaccel_session sess;
     float A[] = {1, 2, 3, 4, 5};
     float B[] = {1, 2, 6, 4, 5};
-    float C[] = {1, 2, 6, 4, 5};
+
     size_t len_A = sizeof(A) / sizeof(A[0]);
     size_t len_B = sizeof(B) / sizeof(B[0]);
+
+
+    float C[len_A];
 
     ret = vaccel_sess_init(&sess, 0);
 
@@ -48,7 +51,7 @@ void test_vaccel_vadd_valid(void)
 
     ret = vaccel_fpga_vadd(&sess, A, B, C, len_A, len_B);
     
-    printf("The value of the integer is: %d\n", ret);
+    // printf("The value of the integer is: %d\n", ret);
 
     TEST_ASSERT_EQUAL(VACCEL_OK, vaccel_sess_free(&sess));
     TEST_ASSERT_NOT_EQUAL(VACCEL_ENOTSUP, ret);
