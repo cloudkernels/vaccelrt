@@ -1,119 +1,8 @@
-==26905== Memcheck, a memory error detector
-==26905== Copyright (C) 2002-2022, and GNU GPL'd, by Julian Seward et al.
-==26905== Using Valgrind-3.19.0-8d3c8034b8-20220411 and LibVEX; rerun with -h for copyright info
-==26905== Command: ../build_test/test/out/test_fpga_copy.out
-==26905== 
---26905-- Valgrind options:
---26905--    --leak-check=full
---26905--    --track-origins=yes
---26905--    --verbose
---26905-- Contents of /proc/version:
---26905--   Linux version 6.2.0-32-generic (buildd@lcy02-amd64-023) (x86_64-linux-gnu-gcc-12 (Ubuntu 12.3.0-1ubuntu1~23.04) 12.3.0, GNU ld (GNU Binutils for Ubuntu) 2.40) #32-Ubuntu SMP PREEMPT_DYNAMIC Mon Aug 14 10:03:50 UTC 2023
---26905-- 
---26905-- Arch and hwcaps: AMD64, LittleEndian, amd64-cx16-lzcnt-rdtscp-sse3-ssse3-avx-avx2-bmi-f16c-rdrand-rdseed
---26905-- Page sizes: currently 4096, max supported 4096
---26905-- Valgrind library directory: /usr/libexec/valgrind
---26905-- Reading syms from /home/jl/Documents/GitHub/vaccelrt/build_test/test/out/test_fpga_copy.out
---26905-- Reading syms from /usr/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2
---26905--   Considering /usr/lib/debug/.build-id/5b/beb16d20aeed35a6e0ee5c9407f8d0867fc554.debug ..
---26905--   .. build-id is valid
---26905-- Reading syms from /usr/libexec/valgrind/memcheck-amd64-linux
---26905--    object doesn't have a symbol table
---26905--    object doesn't have a dynamic symbol table
---26905-- Scheduler: using generic scheduler lock implementation.
---26905-- Reading suppressions file: /usr/libexec/valgrind/default.supp
-==26905== embedded gdbserver: reading from /tmp/vgdb-pipe-from-vgdb-to-26905-by-jl-on-???
-==26905== embedded gdbserver: writing to   /tmp/vgdb-pipe-to-vgdb-from-26905-by-jl-on-???
-==26905== embedded gdbserver: shared mem   /tmp/vgdb-pipe-shared-mem-vgdb-26905-by-jl-on-???
-==26905== 
-==26905== TO CONTROL THIS PROCESS USING vgdb (which you probably
-==26905== don't want to do, unless you know exactly what you're doing,
-==26905== or are doing some strange experiment):
-==26905==   /usr/bin/vgdb --pid=26905 ...command...
-==26905== 
-==26905== TO DEBUG THIS PROCESS USING GDB: start GDB like this
-==26905==   /path/to/gdb ../build_test/test/out/test_fpga_copy.out
-==26905== and then give GDB the following command
-==26905==   target remote | /usr/bin/vgdb --pid=26905
-==26905== --pid is optional if only one valgrind process is running
-==26905== 
---26905-- REDIR: 0x40262d0 (ld-linux-x86-64.so.2:strlen) redirected to 0x580bd2f2 (???)
---26905-- REDIR: 0x4024a80 (ld-linux-x86-64.so.2:index) redirected to 0x580bd30c (???)
---26905-- Reading syms from /usr/libexec/valgrind/vgpreload_core-amd64-linux.so
---26905--    object doesn't have a symbol table
---26905-- Reading syms from /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so
---26905--    object doesn't have a symbol table
-==26905== WARNING: new redirection conflicts with existing -- ignoring it
---26905--     old: 0x040262d0 (strlen              ) R-> (0000.0) 0x580bd2f2 ???
---26905--     new: 0x040262d0 (strlen              ) R-> (2007.0) 0x04849dc0 strlen
---26905-- REDIR: 0x4024cb0 (ld-linux-x86-64.so.2:strcmp) redirected to 0x484ada0 (strcmp)
---26905-- REDIR: 0x4023ed0 (ld-linux-x86-64.so.2:mempcpy) redirected to 0x484e870 (mempcpy)
---26905-- Reading syms from /usr/local/lib/libvaccel.so
---26905-- Reading syms from /usr/lib/x86_64-linux-gnu/libc.so.6
---26905--   Considering /usr/lib/debug/.build-id/bd/b8aa3b1b60f9d43e1c70ba98158e05f765efdc.debug ..
---26905--   .. build-id is valid
-==26905== WARNING: new redirection conflicts with existing -- ignoring it
---26905--     old: 0x0491f030 (memalign            ) R-> (1011.0) 0x04849010 memalign
---26905--     new: 0x0491f030 (memalign            ) R-> (1017.0) 0x04848fe0 aligned_alloc
-==26905== WARNING: new redirection conflicts with existing -- ignoring it
---26905--     old: 0x0491f030 (memalign            ) R-> (1011.0) 0x04849010 memalign
---26905--     new: 0x0491f030 (memalign            ) R-> (1017.0) 0x04848fb0 aligned_alloc
-==26905== WARNING: new redirection conflicts with existing -- ignoring it
---26905--     old: 0x0491f030 (memalign            ) R-> (1011.0) 0x04849010 memalign
---26905--     new: 0x0491f030 (memalign            ) R-> (1017.0) 0x04848fe0 aligned_alloc
-==26905== WARNING: new redirection conflicts with existing -- ignoring it
---26905--     old: 0x0491f030 (memalign            ) R-> (1011.0) 0x04849010 memalign
---26905--     new: 0x0491f030 (memalign            ) R-> (1017.0) 0x04848fb0 aligned_alloc
---26905-- REDIR: 0x4026470 (ld-linux-x86-64.so.2:strncmp) redirected to 0x484a5d0 (strncmp)
---26905-- REDIR: 0x4925e60 (libc.so.6:strnlen) redirected to 0x483a1c0 (_vgnU_ifunc_wrapper)
---26905-- REDIR: 0x4925ef0 (libc.so.6:strpbrk) redirected to 0x483a1c0 (_vgnU_ifunc_wrapper)
---26905-- REDIR: 0x4923fc0 (libc.so.6:strcmp) redirected to 0x483a1c0 (_vgnU_ifunc_wrapper)
---26905-- REDIR: 0x493b570 (libc.so.6:wcsnlen) redirected to 0x483a1c0 (_vgnU_ifunc_wrapper)
---26905-- REDIR: 0x49230d0 (libc.so.6:memset) redirected to 0x483a1c0 (_vgnU_ifunc_wrapper)
---26905-- REDIR: 0x4939be0 (libc.so.6:wcslen) redirected to 0x483a1c0 (_vgnU_ifunc_wrapper)
---26905-- REDIR: 0x49225b0 (libc.so.6:memcpy@@GLIBC_2.14) redirected to 0x483a1c0 (_vgnU_ifunc_wrapper)
---26905-- REDIR: 0x49399a0 (libc.so.6:wcschr) redirected to 0x483a1c0 (_vgnU_ifunc_wrapper)
---26905-- REDIR: 0x4923eb0 (libc.so.6:index) redirected to 0x483a1c0 (_vgnU_ifunc_wrapper)
---26905-- REDIR: 0x4925f20 (libc.so.6:rindex) redirected to 0x483a1c0 (_vgnU_ifunc_wrapper)
---26905-- REDIR: 0x4939a30 (libc.so.6:wcscmp) redirected to 0x483a1c0 (_vgnU_ifunc_wrapper)
---26905-- REDIR: 0x4923320 (libc.so.6:stpncpy) redirected to 0x483a1c0 (_vgnU_ifunc_wrapper)
---26905-- REDIR: 0x493a060 (libc.so.6:wmemchr) redirected to 0x483a1c0 (_vgnU_ifunc_wrapper)
---26905-- REDIR: 0x4925d00 (libc.so.6:strncmp) redirected to 0x483a1c0 (_vgnU_ifunc_wrapper)
---26905-- REDIR: 0x4923390 (libc.so.6:strcasecmp) redirected to 0x483a1c0 (_vgnU_ifunc_wrapper)
---26905-- REDIR: 0x4925210 (libc.so.6:strcspn) redirected to 0x483a1c0 (_vgnU_ifunc_wrapper)
---26905-- REDIR: 0x4939ac0 (libc.so.6:wcscpy) redirected to 0x483a1c0 (_vgnU_ifunc_wrapper)
---26905-- REDIR: 0x4923e30 (libc.so.6:strcat) redirected to 0x483a1c0 (_vgnU_ifunc_wrapper)
---26905-- REDIR: 0x4925bf0 (libc.so.6:strncasecmp_l) redirected to 0x483a1c0 (_vgnU_ifunc_wrapper)
---26905-- REDIR: 0x49224b0 (libc.so.6:bcmp) redirected to 0x483a1c0 (_vgnU_ifunc_wrapper)
---26905-- REDIR: 0x4923040 (libc.so.6:memrchr) redirected to 0x483a1c0 (_vgnU_ifunc_wrapper)
---26905-- REDIR: 0x4923f30 (libc.so.6:strchrnul) redirected to 0x483a1c0 (_vgnU_ifunc_wrapper)
---26905-- REDIR: 0x4925190 (libc.so.6:strcpy) redirected to 0x483a1c0 (_vgnU_ifunc_wrapper)
---26905-- REDIR: 0x4923430 (libc.so.6:strcasecmp_l) redirected to 0x483a1c0 (_vgnU_ifunc_wrapper)
---26905-- REDIR: 0x4925ac0 (libc.so.6:strlen) redirected to 0x483a1c0 (_vgnU_ifunc_wrapper)
---26905-- REDIR: 0x4925da0 (libc.so.6:strncpy) redirected to 0x483a1c0 (_vgnU_ifunc_wrapper)
---26905-- REDIR: 0x49232a0 (libc.so.6:stpcpy) redirected to 0x483a1c0 (_vgnU_ifunc_wrapper)
---26905-- REDIR: 0x4922e00 (libc.so.6:memmove) redirected to 0x483a1c0 (_vgnU_ifunc_wrapper)
-==26905== Preferring higher priority redirection:
---26905--     old: 0x049efdc0 (__memcpy_avx_unalign) R-> (2018.0) 0x0484c0a0 __memcpy_avx_unaligned_erms
---26905--     new: 0x049efdc0 (__memcpy_avx_unalign) R-> (2018.1) 0x0484d970 memmove
---26905-- REDIR: 0x4922420 (libc.so.6:memchr) redirected to 0x483a1c0 (_vgnU_ifunc_wrapper)
---26905-- REDIR: 0x49260e0 (libc.so.6:strspn) redirected to 0x483a1c0 (_vgnU_ifunc_wrapper)
---26905-- REDIR: 0x4922f20 (libc.so.6:mempcpy) redirected to 0x483a1c0 (_vgnU_ifunc_wrapper)
---26905-- REDIR: 0x4925b50 (libc.so.6:strncasecmp) redirected to 0x483a1c0 (_vgnU_ifunc_wrapper)
---26905-- REDIR: 0x49231d0 (libc.so.6:rawmemchr) redirected to 0x483a1c0 (_vgnU_ifunc_wrapper)
---26905-- REDIR: 0x49f49b0 (libc.so.6:__strrchr_avx2) redirected to 0x48497a0 (rindex)
---26905-- REDIR: 0x49f2160 (libc.so.6:__strchrnul_avx2) redirected to 0x484e360 (strchrnul)
---26905-- REDIR: 0x49f2b00 (libc.so.6:__strlen_avx2) redirected to 0x4849ca0 (strlen)
---26905-- REDIR: 0x49efdc0 (libc.so.6:__memcpy_avx_unaligned_erms) redirected to 0x484d970 (memmove)
---26905-- REDIR: 0x49f3be0 (libc.so.6:__strncmp_avx2) redirected to 0x484a3f0 (strncmp)
---26905-- REDIR: 0x491e3f0 (libc.so.6:malloc) redirected to 0x48437b0 (malloc)
---26905-- REDIR: 0x491e700 (libc.so.6:free) redirected to 0x48461a0 (free)
---26905-- REDIR: 0x4a11c90 (libc.so.6:__strspn_sse42) redirected to 0x484ed50 (strspn)
---26905-- REDIR: 0x491f8a0 (libc.so.6:calloc) redirected to 0x4848960 (calloc)
---26905-- REDIR: 0x4a0eff0 (libc.so.6:__strcspn_sse42) redirected to 0x484ec50 (strcspn)
---26905-- REDIR: 0x491ea60 (libc.so.6:realloc) redirected to 0x4848be0 (realloc)
---26905-- Reading syms from /home/jl/Documents/GitHub/vaccelrt/reqs/lib/libvaccel-noop.so
---26905-- REDIR: 0x49efd80 (libc.so.6:__mempcpy_avx_unaligned_erms) redirected to 0x484e470 (mempcpy)
+==27346== Memcheck, a memory error detector
+==27346== Copyright (C) 2002-2022, and GNU GPL'd, by Julian Seward et al.
+==27346== Using Valgrind-3.19.0 and LibVEX; rerun with -h for copyright info
+==27346== Command: ../build_test/test/out/test_fpga_copy.out
+==27346== 
 test_fpga_copy.c:25:test_vaccel_arraycopy_null:PASS
 [noop] Calling v_arraycopy for session 1
 [noop] Dumping arguments for v_arracycopy:
@@ -124,21 +13,19 @@ test_fpga_copy.c:35:test_vaccel_arraycopy_valid:PASS
 -----------------------
 2 Tests 0 Failures 0 Ignored 
 OK
-==26905== 
-==26905== HEAP SUMMARY:
-==26905==     in use at exit: 1,530 bytes in 4 blocks
-==26905==   total heap usage: 13 allocs, 9 frees, 66,024 bytes allocated
-==26905== 
-==26905== Searching for pointers to 4 not-freed blocks
-==26905== Checked 168,264 bytes
-==26905== 
-==26905== LEAK SUMMARY:
-==26905==    definitely lost: 0 bytes in 0 blocks
-==26905==    indirectly lost: 0 bytes in 0 blocks
-==26905==      possibly lost: 0 bytes in 0 blocks
-==26905==    still reachable: 1,530 bytes in 4 blocks
-==26905==         suppressed: 0 bytes in 0 blocks
-==26905== Reachable blocks (those to which a pointer was found) are not shown.
-==26905== To see them, rerun with: --leak-check=full --show-leak-kinds=all
-==26905== 
-==26905== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+==27346== 
+==27346== HEAP SUMMARY:
+==27346==     in use at exit: 1,530 bytes in 4 blocks
+==27346==   total heap usage: 13 allocs, 9 frees, 66,024 bytes allocated
+==27346== 
+==27346== LEAK SUMMARY:
+==27346==    definitely lost: 0 bytes in 0 blocks
+==27346==    indirectly lost: 0 bytes in 0 blocks
+==27346==      possibly lost: 0 bytes in 0 blocks
+==27346==    still reachable: 1,530 bytes in 4 blocks
+==27346==         suppressed: 0 bytes in 0 blocks
+==27346== Reachable blocks (those to which a pointer was found) are not shown.
+==27346== To see them, rerun with: --leak-check=full --show-leak-kinds=all
+==27346== 
+==27346== For lists of detected and suppressed errors, rerun with: -s
+==27346== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)

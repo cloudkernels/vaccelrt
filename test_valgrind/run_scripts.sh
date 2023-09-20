@@ -4,8 +4,12 @@ TESTDIR="../build_test/test/out/"
 SHARED_OBJECT="../reqs/lib/libvaccel-noop.so"
 OUTPUT_DIR="./valgrind_output"
 
+# declare -a ARGUMENTS=(
+#     "valgrind --leak-check=full --track-origins=yes --verbose"
+# )
+
 declare -a ARGUMENTS=(
-    "valgrind --leak-check=full --track-origins=yes --verbose"
+    "valgrind --leak-check=full"
 )
 
 total_files=$(find "$TESTDIR" -maxdepth 1 -type f -executable | wc -l)
