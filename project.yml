@@ -26,6 +26,7 @@
 
 :environment:
   - :VACCEL_BACKENDS: ./reqs/lib/libvaccel-noop.so
+  # - :valgrind: --leak-check=full --log-file=valgrind-out.txt
 
 :extension:
   :executable: .out
@@ -82,6 +83,21 @@
 # Ceedling defaults to using gcc for compiling, linking, etc.
 # As [:tools] is blank, gcc will be used (so long as it's in your system path)
 # See documentation to configure a given toolchain for use
+
+# :tools:
+#   :pre_test_fixture_execute:
+#     :executable: valgrind
+#     :arguments:
+#       - --track-origins=yes
+#       - --leak-check=full
+#       - --show-leak-kinds=all
+#       - --errors-for-leak-kinds=all
+#       - --error-exitcode=10
+#       - ${1}
+# :plugins:
+#   :enabled:
+#     - command_hooks
+
 
 # LIBRARIES
 # These libraries are automatically injected into the build process. Those specified as
