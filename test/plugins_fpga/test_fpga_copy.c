@@ -5,7 +5,6 @@
 #include "session.h"
 
 
-
 static int fini(void) 
 {
     return VACCEL_OK;
@@ -16,10 +15,12 @@ static int init(void)
     return VACCEL_OK;
 }
 
+
 // Function to set up your test environment
 void setUp(void){}
 
 void tearDown(void){}
+
 
 
 void test_vaccel_arraycopy_null(void)
@@ -30,7 +31,6 @@ void test_vaccel_arraycopy_null(void)
 
     TEST_ASSERT_EQUAL(vaccel_fpga_arraycopy(NULL, input_array, output_array, len_input_array), VACCEL_EINVAL);
 }
-
 
 void test_vaccel_arraycopy_valid(void)
 {
@@ -46,20 +46,10 @@ void test_vaccel_arraycopy_valid(void)
 
     ret = vaccel_fpga_arraycopy(&sess, input_array, output_array, len_input_array);
 
-    // printf("The value of the integer is: %d\n", ret);
-
     TEST_ASSERT_EQUAL(VACCEL_OK, vaccel_sess_free(&sess));
     TEST_ASSERT_NOT_EQUAL(VACCEL_ENOTSUP, ret);
 
-
-    printf("{");
-    for (size_t i = 0; i < len_input_array; i++) {
-        printf("%d", output_array[i]);
-        if (i < len_input_array - 1) {
-            printf(".");
-        }
-    }
-    printf("}\n");
+    TEST_ASSERT_EQUAL_INT_ARRAY(input_array, output_array, len_input_array);
 
 }
 
