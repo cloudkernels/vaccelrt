@@ -373,11 +373,11 @@ static int v_mmult(struct vaccel_session *session, float *a, float *b,
 				                   float *c_out, size_t len_a)
 {
 	int i = 0;
-	fprintf(stdout, "[noop] Calling v_mmult for session %u\n",
-		session->session_id);
+	// fprintf(stdout, "[noop] Calling v_mmult for session %u\n",
+	// 	session->session_id);
 
-	fprintf(stdout, "[noop] Dumping arguments for v_mmult:\n");
-	fprintf(stdout, "[noop] len_a: %zu\n", len_a);
+	// fprintf(stdout, "[noop] Dumping arguments for v_mmult:\n");
+	// fprintf(stdout, "[noop] len_a: %zu\n", len_a);
 
 	/* Fill output with dummy values */
 	for (i = 0; i < len_a ; i++) {
