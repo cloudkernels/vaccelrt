@@ -45,13 +45,13 @@ void test_vaccel_arraycopy_valid(void)
     TEST_ASSERT_EQUAL(VACCEL_OK, ret);
 
     ret = vaccel_fpga_arraycopy(&sess, input_array, output_array, len_input_array);
-
     TEST_ASSERT_EQUAL(VACCEL_OK, vaccel_sess_free(&sess));
     TEST_ASSERT_NOT_EQUAL(VACCEL_ENOTSUP, ret);
 
     TEST_ASSERT_EQUAL_INT_ARRAY(input_array, output_array, len_input_array);
 
 }
+
 
 
 

@@ -354,11 +354,12 @@ static int v_parallel(struct vaccel_session *session, float *a, float *b,
 				                      float *add_out, float *mult_out, size_t len_a)
 {
 	int i = 0;
-	fprintf(stdout, "[noop] Calling v_parallel for session %u\n",
-		session->session_id);
+	
+	// fprintf(stdout, "[noop] Calling v_parallel for session %u\n",
+	// 	session->session_id);
 
-	fprintf(stdout, "[noop] Dumping arguments for v_parallel:\n");
-	fprintf(stdout, "[noop] len_a: %zu\n", len_a);
+	// fprintf(stdout, "[noop] Dumping arguments for v_parallel:\n");
+	// fprintf(stdout, "[noop] len_a: %zu\n", len_a);
 
 	/* Fill output with dummy values */
 	for (i = 0; i < len_a ; i++) {
