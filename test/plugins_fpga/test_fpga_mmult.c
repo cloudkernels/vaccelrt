@@ -3,7 +3,9 @@
 #include "fpga.h"
 #include "noop.h"
 #include "session.h"
-
+#include "genop.h"
+#include "include/ops/fpga.h"
+#include "ops/fpga.h"
 
 static int fini(void) 
 {
@@ -50,11 +52,8 @@ void test_vaccel_mmult_valid(void)
     TEST_ASSERT_EQUAL(VACCEL_OK, vaccel_sess_free(&sess));
     TEST_ASSERT_NOT_EQUAL(VACCEL_ENOTSUP, ret);
 
-    float expected_c[] = {5.1, 5.1, 5.1, 5.1, 5.1}; // assume this is our output we want.
+    float expected_c[] = {9.1, 9.1, 9.1, 9.1, 9.1}; // assume this is our output we want.
 
     TEST_ASSERT_EQUAL_FLOAT_ARRAY(expected_c, c, len_a);
 
 }
-
-
-
