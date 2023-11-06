@@ -27,6 +27,7 @@ examples_sources = [
   'minmax.c',
   'pynq_array_copy.c',
   'segment_generic.c',
+  'mbench.c',
 ]
 
 foreach e : examples_sources
