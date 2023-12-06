@@ -64,6 +64,7 @@ set(TESTS_API
     test_minmax
     test_noop
     test_blas
+    test_exec_helpers
 )
 
 foreach(TEST_NAME ${TESTS_CORE})
