@@ -21,7 +21,7 @@ extern "C"
 #include "shared_object.h"
 }
 
-TEST_CASE("exec")
+TEST_CASE("exec_helpers")
 {
     int ret;
 	struct vaccel_session sess;
