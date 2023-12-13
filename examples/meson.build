@@ -11,6 +11,7 @@ examples_sources = [
   'exec_with_res.c',
   'pynq_parallel_generic.c',
   'tf_inference.c',
+  'tflite_inference.c',
   'depth.c',
   'noop.c',
   'pynq_vector_add.c',
