@@ -1,17 +1,22 @@
 option('plugin-noop',
   type : 'feature',
-  value : 'disabled',
+  value : 'auto',
   description : 'Build the no-op debugging plugin')
 
 option('plugin-exec',
   type : 'feature',
-  value : 'disabled',
+  value : 'auto',
   description : 'Build the exec plugin')
 
 option('plugin-mbench',
   type : 'feature',
-  value : 'disabled',
+  value : 'auto',
   description : 'Build the mbench plugin')
+
+option('plugins',
+  type : 'feature',
+  value : 'disabled',
+  description : 'Build all the plugins')
 
 option('examples',
   type : 'feature',
