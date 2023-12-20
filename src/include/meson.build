@@ -19,6 +19,7 @@ vaccel_public_headers = files([
   'ops/vaccel_ops.h',
   'resources/shared_object.h',
   'resources/tf_saved_model.h',
+  'resources/tf_model.h',
   'resources/torch_saved_model.h',
   'session.h',
   'vaccel_file.h',
@@ -27,7 +28,6 @@ vaccel_public_headers = files([
   'misc.h',
   'plugin.h',
   'resources.h',
-  'tf_model.h',
   'vaccel_id.h'
 ])
 
