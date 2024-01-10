@@ -19,7 +19,7 @@ jobs:
         id: coverage_patch
         run: |
           cd ${{github.workspace}}/src/
-          patch < ../test/docs/coverage.patch
+          patch < ../test/coverage.patch
 
       - name: Install dependencies for tests
         id: install_dependencies
@@ -57,7 +57,7 @@ jobs:
         env:
           API_TOKEN_GITHUB: ${{ secrets.NBFC_BUILDER_TOKEN }}
         with:
-          source_folder: "test/docs/coverage"
+          source_folder: "./docs/coverage/src_coverage"
           destination_repo: "nubificus/vaccel-docs"
           destination_folder: "docs/python"
           user_email: "jlima@nubificus.co.uk"
