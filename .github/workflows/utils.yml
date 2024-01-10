@@ -177,7 +177,7 @@ jobs:
         id: coverage_patch
         run: |
           cd ${{github.workspace}}/src/
-          patch < ../test/docs/coverage.patch
+          patch < ../test/coverage.patch
 
       - name: Install dependencies for tests
         id: install_dependencies
