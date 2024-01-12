@@ -15,7 +15,7 @@ cd build
 Run CMake with test support:
 ```
 cmake ../  -DENABLE_TESTS=ON
-``` 
+```
 Build the project and execute the tests
 ```
 make
@@ -104,9 +104,8 @@ Start  8: test_log
 8: Randomness seeded to: 3675778273
 8: ===============================================================================
 8: All tests passed (3 assertions in 1 test case)
-8: 
+8:
 8: 2023.12.11-01:07:05.80 - <debug> Shutting down vAccel
 8: 2023.12.11-01:07:05.80 - <debug> Cleaning up plugins
  8/17 Test  #8: test_log .........................   Passed    0.00 sec
-
 ```

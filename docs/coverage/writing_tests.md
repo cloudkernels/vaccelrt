@@ -60,7 +60,6 @@ extern "C"{
 }
 
 TEST_CASE("basic_test") {
-    
     int result;
     result = do_something();
     REQUIRE(result == expected);

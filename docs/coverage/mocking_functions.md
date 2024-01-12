@@ -36,8 +36,7 @@ TEST_CASE("vaccel_get_plugins", "[vaccel_get_plugins]")
 Let us work through this step by step:
 
 
-
-Add the following at the top: 
+Add the following at the top:
 ```cpp
 #include <fff.h>
 DEFINE_FFF_GLOBALS;

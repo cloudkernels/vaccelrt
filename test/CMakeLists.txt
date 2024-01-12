@@ -3,8 +3,6 @@ project(VACCEL_TEST CXX)
 
 set(COMMON_COMPILE_OPTIONS -Wall -Wextra -g -ggdb --coverage)
 add_library(tests-main STATIC main.cpp)
-#  
-
 set(MY_INCLUDE_DIRECTORIES
     ../third-party/slog/src
     ../src
@@ -12,9 +10,6 @@ set(MY_INCLUDE_DIRECTORIES
     ./fff
     ./catch2
 )
-
-
-
 # Function to simplify adding tests
 function(add_test_target_core TARGET_NAME SOURCE_FILE)
     add_executable(${TARGET_NAME} ${PROJECT_SOURCE_DIR}/unit/${SOURCE_FILE})
@@ -80,7 +75,7 @@ endforeach()
 
 # Tests with a source file (if needed)
 
-add_executable(test_plugin ${PROJECT_SOURCE_DIR}/unit/test_plugin.cpp ../src/plugin.c) 
+add_executable(test_plugin ${PROJECT_SOURCE_DIR}/unit/test_plugin.cpp ../src/plugin.c)
 target_include_directories(test_plugin PRIVATE ${MY_INCLUDE_DIRECTORIES})
 target_compile_options(test_plugin PRIVATE ${COMMON_COMPILE_OPTIONS})
 target_link_libraries(test_plugin PRIVATE vaccel tests-main gcov --coverage)

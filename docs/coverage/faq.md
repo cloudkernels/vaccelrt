@@ -60,4 +60,4 @@ valgrind ./build/test/test_name
 If the test requires a backend, remember to set it as a environment property by:
 ```
 env VACCEL_BACKENDS=./build/plugins/noop/libvaccel-noop.so valgrind build/test/test_name
-```
+``
