@@ -15,7 +15,11 @@ cd build
 Run CMake with test support:
 ```
 cmake ../  -DENABLE_TESTS=ON
+<<<<<<< HEAD
 ```
+=======
+``` 
+>>>>>>> cbc3d59b80702fef34bdd52e5dc6e9b89b2125cb
 Build the project and execute the tests
 ```
 make
