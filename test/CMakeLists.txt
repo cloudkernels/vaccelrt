@@ -3,11 +3,6 @@ project(VACCEL_TEST CXX)
 
 set(COMMON_COMPILE_OPTIONS -Wall -Wextra -g -ggdb --coverage)
 add_library(tests-main STATIC main.cpp)
-<<<<<<< HEAD
-=======
-#  
-
->>>>>>> cbc3d59b80702fef34bdd52e5dc6e9b89b2125cb
 set(MY_INCLUDE_DIRECTORIES
     ../third-party/slog/src
     ../src
@@ -15,12 +10,6 @@ set(MY_INCLUDE_DIRECTORIES
     ./fff
     ./catch2
 )
-<<<<<<< HEAD
-=======
-
-
-
->>>>>>> cbc3d59b80702fef34bdd52e5dc6e9b89b2125cb
 # Function to simplify adding tests
 function(add_test_target_core TARGET_NAME SOURCE_FILE)
     add_executable(${TARGET_NAME} ${PROJECT_SOURCE_DIR}/unit/${SOURCE_FILE})
