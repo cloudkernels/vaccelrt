@@ -5,7 +5,7 @@ on:
 
 jobs:
   test_valgrind:
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, "x86_64", gcc, lite, "2204"]
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -14,7 +14,7 @@ jobs:
 
       - name: Install dependencies
         id: install_dependencies
-        run: sudo apt-get install -y lcov cmake gcc g++ libclang-dev valgrind
+        run: sudo apt update && sudo apt-get install -y lcov cmake gcc g++-12 libclang-dev valgrind
 
       - name: Run tests
         run: |
