@@ -1,3 +1,15 @@
+/*
+ *
+ * The code below performs unit testing to resources.
+ *
+ * 1) resource_bootsrap()
+ * 2) resource_new()
+ * 3) resource_destory()
+ * 4) resource_create_rundir()
+ * 5) resource_get_by_id()
+ *
+ */
+ 
 #include <atomic>
 #include <catch.hpp>
 
@@ -19,17 +31,6 @@ extern "C" {
 // Mock cleanup function for resources
 int cleanup_resource_mock([[maybe_unused]] void* data) { return 0; }
 
-/*
- *
- * The code below performs unit testing to resources.
- *
- * 1) resource_bootsrap()
- * 2) resource_new()
- * 3) resource_destory()
- * 4) resource_create_rundir()
- * 5) resource_get_by_id()
- *
- */
 
 // Test case for resource destruction
 TEST_CASE("destroy_OK", "[Resources]")

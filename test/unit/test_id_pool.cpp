@@ -1,7 +1,14 @@
+/*
+ * The code below performs unit testing to id_pool.
+ *
+ * 1) id_pool_new()
+ * 2) id_pool_destroy()
+ * 3) id_pool_get()
+ * 4) id_pool_release()
+ */
+
 #include <catch.hpp>
-
 #include <fff.h>
-
 #include <atomic>
 
 using atomic_int = std::atomic<int>;
@@ -13,15 +20,6 @@ extern "C" {
 #include "error.h"
 #include "id_pool.h"
 }
-
-/*
- * The code below performs unit testing to id_pool.
- *
- * 1) id_pool_new()
- * 2) id_pool_destroy()
- * 3) id_pool_get()
- * 4) id_pool_release()
- */
 
 // Test case for creating a new ID pool
 TEST_CASE("id_pool_new", "[id_pool]")

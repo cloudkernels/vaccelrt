@@ -1,3 +1,17 @@
+/*
+ * The code below performs unit testing to sessions.
+ *
+ * 1) sessions_bootstrap()
+ * 2) vaccel_sess_init()
+ * 3) vaccel_sess_update()
+ * 4) vaccel_sess_free()
+ * 5) vaccel_sess_unregister()
+ * 6) vaccel_sess_register()
+ * 7) vaccel_sess_has_resource)()
+ * 8) session_cleanup()
+ *
+ */
+ 
 #include "fff.h"
 #include <catch.hpp>
 
@@ -20,20 +34,6 @@ FAKE_VALUE_FUNC(struct vaccel_session*, sess_free);
 
 
 #define MAX_VACCEL_SESSIONS 1024
-
-/*
- * The code below performs unit testing to sessions.
- *
- * 1) sessions_bootstrap()
- * 2) vaccel_sess_init()
- * 3) vaccel_sess_update()
- * 4) vaccel_sess_free()
- * 5) vaccel_sess_unregister()
- * 6) vaccel_sess_register()
- * 7) vaccel_sess_has_resource)()
- * 8) session_cleanup()
- *
- */
 
 // Mock functions for session initialization and cleanup
 int mock_sess_init(vaccel_session* sess, uint32_t flags)

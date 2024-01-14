@@ -1,3 +1,9 @@
+/*
+ * Unit Testing for VAccel Noop Operation
+ *
+ * The code below performs unit testing for the VAccel Noop operation functions.
+ */
+
 #include <catch.hpp>
 
 #include <atomic>

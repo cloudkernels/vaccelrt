@@ -1,6 +1,5 @@
 
 #include <catch.hpp>
-
 #include <atomic>
 
 using atomic_int = std::atomic<int>;

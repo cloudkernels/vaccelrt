@@ -1,3 +1,16 @@
+/*
+ *
+ * The code below performs unit testing to resources.
+ *
+ * 1) plugins_bootstrap()
+ * 2) register_plugin()
+ * 3) register_plugin_function()
+ * 4) get_available_plugins()
+ * 5) unregister_plugin()
+ * 6) plugins_shutdown()
+ * 7) get_plugin_op()
+ */
+
 #include "ops/vaccel_ops.h"
 #include <catch.hpp>
 #include <cerrno>
@@ -12,7 +25,6 @@ extern "C" {
 #include <stdbool.h>
 #include <string.h>
 
-// TODO: Investigate unregister plugin function and freeing memory
 
 static const char* pname = "mock_plugin_test";
 

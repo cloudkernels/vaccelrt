@@ -1,3 +1,10 @@
+/*
+ * The code below performs unit testing to misc.
+ *
+ * 1) vaccel_get_plugins()
+ *
+ */
+ 
 #include <catch.hpp>
 #include <fff.h>
 DEFINE_FFF_GLOBALS;
@@ -6,12 +13,6 @@ extern "C" {
 #include "misc.h"
 }
 
-/*
- * The code below performs unit testing to misc.
- *
- * 1) vaccel_get_plugins()
- *
- */
 
 TEST_CASE("vaccel_get_plugins", "[vaccel_get_plugins]")
 {

@@ -1,5 +1,11 @@
-#include <catch.hpp>
+/*
+ *
+ * The code below performs unit testing for bootstrapping and shutting down parts of the vAccel framework
+ *
+ *
+ */
 
+#include <catch.hpp>
 #include <atomic>
 
 using atomic_int = std::atomic<int>;
@@ -25,12 +31,6 @@ extern "C" {
 #define MAX_VACCEL_SESSIONS 1024
 #define MAX_RESOURCES 2048
 #define MAX_RESOURCE_RUNDIR 1024
-/*
- *
- * The code below performs unit testing for bootstrapping and shutting down parts of the vAccel framework
- *
- *
- */
 
 TEST_CASE("plugin")
 {

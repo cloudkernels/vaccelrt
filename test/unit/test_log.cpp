@@ -1,3 +1,11 @@
+/*
+ * The code below performs unit testing to log.
+ *
+ * 1) vaccel_log_init()
+ * 2) vaccel_log_shutdown()
+ *
+ */
+
 #include <catch.hpp>
 
 extern "C" {
@@ -8,14 +16,6 @@ extern "C" {
 #include <stdlib.h>
 #include <string.h>
 }
-
-/*
- * The code below performs unit testing to log.
- *
- * 1) vaccel_log_init()
- * 2) vaccel_log_shutdown()
- *
- */
 
 TEST_CASE("log level 1", "[log]")
 {

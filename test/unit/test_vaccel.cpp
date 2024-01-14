@@ -1,3 +1,11 @@
+/*
+ * The code below performs unit testing for vaccel.c
+ *
+ * This tests the constructor and destructor aspect of the vaccel.c file.
+ * However the destructor/shutdown functions has issues with testing at the 
+ * current amount/
+ */
+
 #include <atomic>
 #include <catch.hpp>
 #include <fff.h>
