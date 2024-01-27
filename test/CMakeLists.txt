@@ -4,9 +4,10 @@ project(VACCEL_TEST CXX)
 set(COMMON_COMPILE_OPTIONS -Wall -Wextra -g -ggdb --coverage)
 add_library(tests-main STATIC main.cpp)
 set(MY_INCLUDE_DIRECTORIES
-    ../third-party/slog/src
-    ../src
-    ../src/include
+    ${CMAKE_SOURCE_DIR}/third-party/slog/src
+    ${CMAKE_SOURCE_DIR}/src
+    ${CMAKE_SOURCE_DIR}/src/include
+    ${CMAKE_BINARY_DIR}/src/include
     ./fff
     ./catch2
 )
@@ -18,6 +19,7 @@ configure_file(utils.hpp.in utils.hpp)
 # Function to simplify adding tests
 function(add_test_target_core TARGET_NAME SOURCE_FILE)
     add_executable(${TARGET_NAME} ${PROJECT_SOURCE_DIR}/unit/${SOURCE_FILE})
+    add_dependencies(${TARGET_NAME} vaccel)
     target_include_directories(${TARGET_NAME} PRIVATE ${MY_INCLUDE_DIRECTORIES})
     target_compile_options(${TARGET_NAME} PRIVATE ${COMMON_COMPILE_OPTIONS})
     target_link_libraries(${TARGET_NAME} PRIVATE vaccel tests-main gcov --coverage)
@@ -27,6 +29,7 @@ endfunction()
 
 function(add_test_target_api TARGET_NAME SOURCE_FILE)
     add_executable(${TARGET_NAME} ${PROJECT_SOURCE_DIR}/op/${SOURCE_FILE} utils.cpp)
+    add_dependencies(${TARGET_NAME} vaccel)
     target_include_directories(${TARGET_NAME} PRIVATE ${MY_INCLUDE_DIRECTORIES})
     target_compile_options(${TARGET_NAME} PRIVATE ${COMMON_COMPILE_OPTIONS})
     target_link_libraries(${TARGET_NAME} PRIVATE vaccel tests-main gcov --coverage)
