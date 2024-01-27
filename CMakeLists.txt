@@ -11,6 +11,8 @@ option(BUILD_PLUGIN_NOOP "Build the no-op debugging plugin" OFF)
 option(BUILD_EXAMPLES "Build the examples" OFF)
 option(ENABLE_TESTS "Enable testing" OFF)
 
+set(CMAKE_INCLUDE_CURRENT_DIR ON)
+
 # Export json with compile commands
 SET(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 IF(EXISTS "${CMAKE_CURRENT_BINARY_DIR}/compile_commands.json")
