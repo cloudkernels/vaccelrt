@@ -11,8 +11,11 @@
 #include <pthread.h>
 #include <stdlib.h>
 #include <string.h>
+#include "vaccel_prof.h"
 
 
+struct vaccel_prof_region torch_op_stats =
+	VACCEL_PROF_REGION_INIT("vaccel_torch_op");
 
 // Torch buffer creation, includes: [char* image, size_t size]
 // if set, during destruction calling `free`
@@ -215,6 +218,8 @@ int vaccel_torch_jitload_forward(struct vaccel_session *sess,
 	vaccel_debug("session:%u Looking for plugin implementing torch_jitload_forward operation",
 						sess->session_id);
 	
+	vaccel_prof_region_start(&torch_op_stats);
+
 	// struct vaccel_arg * -> char **
 	int (*plugin_op)(
 			struct vaccel_session *,
@@ -229,7 +234,11 @@ int vaccel_torch_jitload_forward(struct vaccel_session *sess,
 	if (!plugin_op)
 		return VACCEL_ENOTSUP;
 	// write -> tags
-	return plugin_op(sess, model, run_options, in_tensor, nr_read, out_tensor, nr_write);
+
+	int ret = plugin_op(sess, model, run_options, in_tensor, nr_read, out_tensor, nr_write);
+
+	vaccel_prof_region_stop(&torch_op_stats);
+	return ret;
 }
 
 int vaccel_torch_sgemm(struct vaccel_session *sess,
@@ -259,4 +268,16 @@ int vaccel_torch_sgemm(struct vaccel_session *sess,
 		return VACCEL_ENOTSUP;
 	}
 	return plugin_op(sess, in_A, in_B, in_C, M, N, K, out);
+}
+
+
+__attribute__((constructor))
+static void vaccel_torch_ops_init(void)
+{
+}
+
+__attribute__((destructor))
+static void vaccel_torch_ops_fini(void)
+{
+	vaccel_prof_region_print(&torch_op_stats);
 }
