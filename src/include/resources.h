@@ -30,7 +30,8 @@ typedef enum {
 
 struct vaccel_resource;
 
-vaccel_id_t resource_get_id(struct vaccel_resource *resource);
+void *vaccel_resource_get_data(struct vaccel_resource *res);
+vaccel_resource_t vaccel_resource_get_type(struct vaccel_resource *res);
 
 #ifdef __cplusplus
 }
