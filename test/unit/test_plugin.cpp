@@ -19,6 +19,7 @@ extern "C" {
 #include <dlfcn.h>
 #include <stdbool.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vaccel.h>
 }
 
@@ -49,6 +50,7 @@ TEST_CASE("get_all_available_functions")
 
     plugin.info->name = pname;
     plugin.info->version = pversion;
+    plugin.info->vaccelrt_version = VACCELRT_VERSION;
     plugin.info->init = init;
     plugin.info->fini = fini;
     plugin.info->is_virtio = false;
@@ -80,7 +82,7 @@ TEST_CASE("get_all_available_functions")
     REQUIRE(ret == VACCEL_OK);
 }
 
-TEST_CASE("register numerous function")
+TEST_CASE("register_multiple_functions")
 {
     int ret;
     vaccel_plugin plugin;
@@ -92,6 +94,7 @@ TEST_CASE("register numerous function")
 
     plugin.info->name = pname;
     plugin.info->version = pversion;
+    plugin.info->vaccelrt_version = VACCELRT_VERSION;
     plugin.info->init = init;
     plugin.info->fini = fini;
     plugin.info->is_virtio = false;
@@ -153,7 +156,7 @@ TEST_CASE("register numerous function")
 }
 
 
-TEST_CASE("register plugin functions")
+TEST_CASE("register_plugin_function")
 {
     int ret;
     vaccel_plugin plugin;
@@ -165,6 +168,7 @@ TEST_CASE("register plugin functions")
 
     plugin.info->name = pname;
     plugin.info->version = pversion;
+    plugin.info->vaccelrt_version = VACCELRT_VERSION;
     plugin.info->init = init;
     plugin.info->fini = fini;
     plugin.info->is_virtio = false;
@@ -221,8 +225,112 @@ TEST_CASE("register plugin functions")
         ret = register_plugin(&plugin);
         REQUIRE(ret == VACCEL_EINVAL);
 
+        pinfo.vaccelrt_version = nullptr;
+        ret = register_plugin(&plugin);
+        REQUIRE(ret == VACCEL_EINVAL);
+
         ret = plugins_shutdown();
         REQUIRE(ret == VACCEL_OK);
     }
+}
+
+TEST_CASE("register_plugin_vaccelrt_versions")
+{
+    int ret;
+    int major, minor1, minor2;
+    char *extra, *vaccelrt_version;
+
+    vaccel_plugin plugin;
+    vaccel_plugin_info pinfo;
+    plugin.dl_handle = nullptr;
+    plugin.info = &pinfo;
+    list_init_entry(&plugin.entry);
+    list_init_entry(&plugin.ops);
+
+    plugin.info->name = pname;
+    plugin.info->version = pversion;
+    plugin.info->vaccelrt_version = VACCELRT_VERSION;
+    plugin.info->init = init;
+    plugin.info->fini = fini;
+    plugin.info->is_virtio = false;
+    plugin.info->type = VACCEL_PLUGIN_GENERIC;
+
+    vaccel_op operation;
+    operation.type = VACCEL_NO_OP;
+    operation.func = (void*)no_op;
+    operation.owner = &plugin;
+    list_init_entry(&operation.plugin_entry);
+    list_init_entry(&operation.func_entry);
+
+    ret = parse_plugin_version(&major, &minor1, &minor2, &extra,
+                    VACCELRT_VERSION);
+    REQUIRE(ret == VACCEL_OK);
+    vaccelrt_version = strdup(vaccelrt_version);
+    REQUIRE(vaccelrt_version);
+
+
+    ret = plugins_bootstrap();
+    REQUIRE(ret == VACCEL_OK);
+
+    SECTION("same_version") {
+        ret = register_plugin(&plugin);
+        REQUIRE(ret == VACCEL_OK);
+    }
+
+    plugin.info->vaccelrt_version = vaccelrt_version;
+    SECTION("same_old_format_version") {
+        snprintf(vaccelrt_version, strlen(vaccelrt_version)+1, "v%d.%d.%d%s",
+                        major, minor1, minor2, extra);
+        ret = register_plugin(&plugin);
+        REQUIRE(ret == VACCEL_OK);
+    }
+
+    SECTION("different_major_version") {
+        snprintf(vaccelrt_version, strlen(vaccelrt_version)+1, "%d.%d.%d%s",
+                        major+1, minor1, minor2, extra);
+        ret = register_plugin(&plugin);
+        REQUIRE(ret == VACCEL_EINVAL);
+    }
+
+    SECTION("different_minor1_version") {
+        snprintf(vaccelrt_version, strlen(vaccelrt_version)+1, "%d.%d.%d%s",
+                        major, minor1+1, minor2, extra);
+        ret = register_plugin(&plugin);
+        REQUIRE(ret == VACCEL_OK);
+    }
+
+    SECTION("different_minor2_version") {
+        snprintf(vaccelrt_version, strlen(vaccelrt_version)+1, "%d.%d.%d%s",
+                        major, minor1, minor2+1, extra);
+        ret = register_plugin(&plugin);
+        REQUIRE(ret == VACCEL_OK);
+    }
+
+    SECTION("different_extra_version") {
+        snprintf(vaccelrt_version, strlen(vaccelrt_version)+1, "%d.%d.%d%s",
+                        major, minor1, minor2+1, "-extra");
+        ret = register_plugin(&plugin);
+        REQUIRE(ret == VACCEL_OK);
+    }
+
+    SECTION("wrong_format_version") {
+        snprintf(vaccelrt_version, strlen(vaccelrt_version)+1, "%d-%d.%d%s",
+                        major, minor1, minor2, extra);
+        ret = register_plugin(&plugin);
+        REQUIRE(ret == VACCEL_EINVAL);
+    }
+
+    SECTION("wrong_format_version_ignore") {
+        snprintf(vaccelrt_version, strlen(vaccelrt_version)+1, "%d-%d.%d%s",
+                        major, minor1, minor2, extra);
+        ret = setenv("VACCEL_IGNORE_VERSION", "1", 1);
+        REQUIRE(ret == 0);
+
+        ret = register_plugin(&plugin);
+        REQUIRE(ret == VACCEL_OK);
+    }
+
+    ret = plugins_shutdown();
+    REQUIRE(ret == VACCEL_OK);
 }
 

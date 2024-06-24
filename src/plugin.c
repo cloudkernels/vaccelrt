@@ -11,6 +11,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+#define _POSIX_C_SOURCE 200809L
 
 #include <assert.h>
 #include <stdlib.h>
@@ -23,6 +24,7 @@
 #include "list.h"
 #include "ops/vaccel_ops.h"
 #include "log.h"
+#include "vaccel.h"
 
 static struct {
 	/* true if sub-system is initialized */
@@ -65,6 +67,69 @@ static int check_plugin_info(const struct vaccel_plugin_info *pinfo)
 	return VACCEL_OK;
 }
 
+int parse_plugin_version(int *major, int *minor1, int *minor2,
+		char **extra, const char *str)
+{
+	if (!str)
+		return VACCEL_EINVAL;
+
+	char *tmp_str = strdup(str);
+
+	int ret;
+	if (str[0] == 'v')
+		// for backwards compatibility with vX.Y.Z version format
+		ret = sscanf(tmp_str, "%*c%d.%d.%d%ms", major, minor1, minor2,
+				extra);
+	else
+		// parse X.Y.Z(-extra) version format
+		ret = sscanf(tmp_str, "%d.%d.%d%ms", major, minor1, minor2,
+				extra);
+	if (ret < 3)
+		return VACCEL_EINVAL;
+
+	free(tmp_str);
+	return VACCEL_OK;
+}
+
+static int check_plugin_version(const struct vaccel_plugin_info *pinfo)
+{
+	char *ignore = getenv("VACCEL_IGNORE_VERSION");
+	if (ignore && (strcmp(ignore, "1") == 0 || strcmp(ignore, "true") == 0))
+		return VACCEL_OK;
+
+	if (!pinfo->vaccelrt_version)
+		return VACCEL_EINVAL;
+
+	int major, minor1, minor2;
+	char *extra;
+	if (parse_plugin_version(&major, &minor1, &minor2, &extra,
+				pinfo->vaccelrt_version)) {
+		vaccel_error("Could not parse plugin's vaccelrt version");
+		return VACCEL_EINVAL;
+	}
+
+	int vmajor, vminor1, vminor2;
+	char *vextra;
+	if (parse_plugin_version(&vmajor, &vminor1, &vminor2, &vextra,
+				VACCELRT_VERSION)) {
+		vaccel_error("Could not parse vaccelrt version");
+		return VACCEL_EINVAL;
+	}
+
+	if (major != vmajor) {
+		vaccel_error("Plugin is incompatible with current vAccel version (built w/ %s, used w/ %s)",
+				pinfo->vaccelrt_version, VACCELRT_VERSION);
+		return VACCEL_EINVAL;
+	}
+
+	if (minor1 != vminor1 || minor2 != vminor2 || strcmp(extra, vextra) != 0) {
+		vaccel_warn("Plugin may be incompatible with current vAccel version (built w/ %s, used w/ %s)",
+				pinfo->vaccelrt_version, VACCELRT_VERSION);
+	}
+
+	return VACCEL_OK;
+}
+
 static int is_virtio_plugin(const struct vaccel_plugin_info *pinfo)
 {
 	return pinfo->sess_init && pinfo->sess_free;
@@ -91,6 +156,9 @@ int register_plugin(struct vaccel_plugin *plugin)
 		return VACCEL_EINVAL;
 
 	if (check_plugin_info(plugin->info))
+		return VACCEL_EINVAL;
+
+	if (check_plugin_version(plugin->info))
 		return VACCEL_EINVAL;
 
 	const struct vaccel_plugin_info *info = plugin->info;
