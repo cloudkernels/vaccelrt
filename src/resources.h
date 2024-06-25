@@ -44,6 +44,9 @@ struct vaccel_resource {
 
 	/* rundir for this resource if it needs it. It can be empty (NULL) */
 	char *rundir;
+
+	/* resource id for the agent */
+	vaccel_id_t remote_id;
 };
 
 int resources_bootstrap(void);

@@ -148,3 +148,10 @@ vaccel_id_t vaccel_shared_object_get_id(const struct vaccel_shared_object *objec
 
 	return object->resource->id;
 }
+
+vaccel_id_t vaccel_shared_object_get_remote_id(const struct vaccel_shared_object *object) {
+	if (!object || !object->resource)
+		return -1;
+
+	return object->resource->remote_id;
+}

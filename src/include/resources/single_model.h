@@ -70,6 +70,8 @@ int vaccel_single_model_destroy(struct vaccel_single_model *model);
 
 vaccel_id_t vaccel_single_model_get_id(const struct vaccel_single_model *model);
 
+vaccel_id_t vaccel_single_model_get_remote_id(const struct vaccel_single_model *model);
+
 #ifdef __cplusplus
 }
 #endif

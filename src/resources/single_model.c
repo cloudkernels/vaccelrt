@@ -241,3 +241,10 @@ vaccel_id_t vaccel_single_model_get_id(const struct vaccel_single_model *model)
 
 	return model->resource->id;
 }
+
+vaccel_id_t vaccel_single_model_get_remote_id(const struct vaccel_single_model *model) {
+	if (!model || !model->resource)
+		return -1;
+
+	return model->resource->remote_id;
+}
