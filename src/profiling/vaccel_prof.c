@@ -15,7 +15,33 @@
 #include <string.h>
 #include <time.h>
 
+
+
 enum { MIN_SAMPLES = 1024, MAX_NAME = 256 };
+
+void write_prof_output_to_file(const char *output) {
+    char *file_path = getenv("VACCEL_PROF_OUTPUT_FILE");
+    
+	if (file_path) {
+        // create or clear the file if it exists
+        FILE *file = fopen(file_path, "w");
+        if (!file) {
+            fprintf(stderr, "Failed to open profiling output file: %s\n", strerror(errno));
+            return;
+        }
+        fclose(file);
+
+        file = fopen(file_path, "a");
+        if (!file) {
+            fprintf(stderr, "Failed to open profiling output file: %s\n", strerror(errno));
+            return;
+        }
+
+        // write output
+        fprintf(file, "%s\n", output);
+        fclose(file);
+    }
+}
 
 static uint64_t get_tstamp_nsec(void)
 {
@@ -210,7 +236,7 @@ int vaccel_prof_region_print(const struct vaccel_prof_region *region)
 	for (size_t i = 0; i < region->nr_entries; ++i)
 		total_time += region->samples[i].time;
 
-	vaccel_info("[prof] %s: total_time: %lu nsec nr_entries: %lu",
+	vaccel_prof_info("[prof] %s: total_time: %lu nsec nr_entries: %lu",
 		    region->name, total_time, region->nr_entries);
 
 	return VACCEL_OK;
@@ -332,7 +358,7 @@ int vaccel_prof_regions_print_all(struct vaccel_prof_region *regions,
 		for (size_t j = 0; j < regions[i].nr_entries; ++j)
 			total_time += regions[i].samples[j].time;
 
-		vaccel_info("[prof] %s: total_time: %lu nsec nr_entries: %lu",
+		vaccel_prof_info("[prof] %s: total_time: %lu nsec nr_entries: %lu",
 			    regions[i].name, total_time, regions[i].nr_entries);
 	}
 

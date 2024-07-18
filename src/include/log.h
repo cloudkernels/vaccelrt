@@ -18,6 +18,13 @@ int vaccel_log_shutdown(void);
 #define vaccel_trace slog_trace
 #define vaccel_fatal slog_fatal
 
+#define vaccel_prof_info(fmt, ...) do { \
+    char buffer[1024]; \
+    snprintf(buffer, sizeof(buffer), fmt, __VA_ARGS__); \
+    slog_info("%s", buffer); \
+    write_prof_output_to_file(buffer); \
+} while (0)
+
 #ifdef __cplusplus
 }
 #endif
