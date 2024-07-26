@@ -12,9 +12,8 @@ extern "C" {
 #endif
 
 typedef enum {
-	VACCEL_RES_SHARED_OBJ = 0,
-	VACCEL_RES_SINGLE_MODEL,
-	VACCEL_RES_TF_SAVED_MODEL,
+	VACCEL_FILE_LIB = 0,
+	VACCEL_FILE_DATA,
 	VACCEL_RES_MAX
 } vaccel_resource_t;
 
@@ -28,7 +27,11 @@ int vaccel_resource_deps_from_ids(struct vaccel_resource **deps,
 				  vaccel_id_t *ids, size_t nr_ids);
 int vaccel_resource_set_deps_from_ids(struct vaccel_resource *res,
 				      vaccel_id_t *ids, size_t nr_ids);
-
+int vaccel_resource_new(struct vaccel_resource *res,
+		        const char *path, vaccel_resource_t type);
+int vaccel_resource_new_multi(struct vaccel_resource *res,
+			      const char **paths, vaccel_resource_t type,
+			      size_t nr_files);
 #ifdef __cplusplus
 }
 #endif

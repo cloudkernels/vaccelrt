@@ -16,6 +16,9 @@
 #include <stdlib.h>
 #include <string.h>
 #include <sys/stat.h>
+#include <sys/types.h>
+#include <unistd.h>
+#include <libgen.h>
 
 enum { MAX_RESOURCES = 2048, MAX_RESOURCE_RUNDIR = 1024 };
 
@@ -268,6 +271,7 @@ int resource_create_rundir(struct vaccel_resource *res)
 	char rundir[MAX_RESOURCE_RUNDIR];
 	int len = snprintf(rundir, MAX_RESOURCE_RUNDIR, "%s/resource.%lld",
 			   root_rundir, res->id);
+	
 	if (len == MAX_RESOURCE_RUNDIR) {
 		vaccel_error("rundir path '%s/resource.%lld' too long",
 			     root_rundir, res->id);
@@ -283,4 +287,97 @@ int resource_create_rundir(struct vaccel_resource *res)
 		return VACCEL_ENOMEM;
 
 	return VACCEL_OK;
+}
+
+static int is_dir(const char *path) {
+	struct stat path_stat;
+	stat(path, &path_stat);
+	return S_ISREG(path_stat.st_mode);
+}
+
+static int is_url(const char *path) {
+
+}
+
+int vaccel_resource_new(struct vaccel_resource *res,
+			const char *path, vaccel_resource_t type)
+{
+	if (!initialized)
+                return VACCEL_EPERM;
+        
+	if (!res || type >= VACCEL_RES_MAX || !path)
+                return VACCEL_EINVAL;
+
+	if (is_url(path)) {
+		return vaccel_resource_new_from_url(res, path, type);
+	} else {
+		if (is_dir(path))
+			return vaccel_resource_new_dir(res, path, type);
+		else
+			return vaccel_resource_new_file(res, path, type);
+	}
+}
+int vaccel_resource_new(struct vaccel_resource *res,
+		        const char *path, vaccel_resource_t type)
+{
+        if (!initialized)
+                return VACCEL_EPERM;
+
+        if (!res || type >= VACCEL_RES_MAX || !path)
+                return VACCEL_EINVAL;
+
+        res->id = id_pool_get(&id_pool);
+
+        if (res->id <= 0)
+                return VACCEL_EUSERS;
+
+        res->type = type;
+        res->name = strdup(basename(path));
+	res->path = strndup(dirname(path), strlen(path) - strlen(res->name));
+	res->nr_files = 1;
+
+        list_init_entry(&res->entry);
+        list_add_tail(&live_resources[0], &res->entry);
+        atomic_init(&res->refcount, 0);
+        res->rundir = NULL;
+
+        return VACCEL_OK;
+}
+
+int vaccel_resource_new_multi(struct vaccel_resource *res,
+		              const char **paths, vaccel_resource_t type,
+			      size_t nr_files)
+{
+	size_t i;
+
+	if (!initialized)
+		return VACCEL_EPERM;
+
+	if (!res || type >= VACCEL_RES_MAX || !paths || !nr_files)
+		return VACCEL_EINVAL;
+
+	res->id = id_pool_get(&id_pool);
+
+	if (res->id <= 0)
+		return VACCEL_EUSERS;
+
+	char **res_paths;
+	res_paths = (char**) malloc (nr_files * sizeof(char*));
+	for (i = 0; i < nr_files; ++i) {
+		if (!paths[i])
+			goto exit;
+		res_paths[i] = strdup(paths)
+
+	}
+	res->type = type;
+	res-
+	
+	return VACCEL_OK;
+exit:
+	for (size_t j = 0; j < i; ++j)
+		free (res_paths[j]);
+	free(res_paths);
+
+	return VACCEL_EINVAL;
+	
 }

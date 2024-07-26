@@ -16,14 +16,11 @@ struct vaccel_resource {
 	/* resource id */
 	vaccel_id_t id;
 
+	/* remote id of the remote resource */
+	vaccel_id_t remote_id;
+
 	/* type of the resource */
 	vaccel_resource_t type;
-
-	/* type-specific data of the resource */
-	void *data;
-
-	/* type-specific destructor */
-	int (*cleanup_resource)(void *data);
 
 	/* An entry to add this resource in a list */
 	list_entry_t entry;
@@ -32,15 +29,20 @@ struct vaccel_resource {
 	 * to which this resource is registered to. */
 	atomic_uint refcount;
 
+	/* name of the resource. can be an array */
+        char *name;
+     
+        /* path of the resource. can be an array */
+        char *path;
+
 	/* rundir for this resource if it needs it. It can be empty (NULL) */
 	char *rundir;
 
-	struct vaccel_resource **deps;
+	/* resource representation of the files. can be an array */
+        struct vaccel_file *files;
 
-	size_t nr_deps;
-
-	/* resource id for the agent */
-	vaccel_id_t remote_id;
+	/* number of entities represented by the resource */
+        size_t nr_files;
 };
 
 int resources_bootstrap(void);
